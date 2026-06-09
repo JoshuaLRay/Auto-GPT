@@ -9,11 +9,25 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
+                Section("Game format") {
+                    Picker("Balls in play", selection: Binding(
+                        get: { store.game.format },
+                        set: { store.setFormat($0) }
+                    )) {
+                        ForEach(GameFormat.allCases) { format in
+                            Text(format.displayName).tag(format)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                } footer: {
+                    Text("Six-ball adds Green and Orange. Switching keeps the balls you already have; it doesn't reset the game.")
+                }
+
                 Section("Team names") {
                     ForEach(Team.allCases) { team in
                         HStack {
-                            ForEach(team.balls) { BallChip(ball: $0, size: 22) }
-                            TextField(team.defaultName, text: Binding(
+                            ForEach(store.game.balls(for: team)) { BallChip(ball: $0, size: 22) }
+                            TextField(store.game.defaultName(for: team), text: Binding(
                                 get: { store.game.teamNames[team] ?? "" },
                                 set: { store.setTeamName($0, for: team) }
                             ))

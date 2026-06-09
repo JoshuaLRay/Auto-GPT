@@ -13,7 +13,7 @@ struct ContentView: View {
                     DeadnessBoardView()
 
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(Ball.allCases) { ball in
+                        ForEach(store.game.balls) { ball in
                             BallTrackerView(ball: ball)
                         }
                     }

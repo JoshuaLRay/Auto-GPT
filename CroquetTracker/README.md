@@ -1,22 +1,28 @@
 # Croquet Tracker
 
 A small SwiftUI iOS app for scoring **American six-wicket croquet** at the
-lawn. It tracks the three things you can't keep straight in your head mid-game:
+lawn, in either **4-ball** (Blue/Black vs Red/Yellow) or **6-ball**
+(adds Green/Orange) format — toggle it in Settings. It tracks the three
+things you can't keep straight in your head mid-game:
 
 - **Deadness board** — the classic grid showing which ball is dead on which.
   Tap any cell to toggle. A ball can't be dead on itself.
 - **Next wicket per ball** — each ball shows the wicket it's running for
   (1 → 6 → 1-back … Rover → Stake), with a one-tap **Scored** button.
-- **Player / team per ball** — Blue + Black vs Red + Yellow, with editable
-  player names and team names.
+- **Player / team per ball** — Blue + Black (+ Green) vs Red + Yellow
+  (+ Orange), with editable player names and team names.
 
 Tapping **Scored** advances that ball to its next wicket *and* clears its
 deadness automatically, matching the rules. The minus button steps a ball back
 a wicket for corrections without touching deadness.
 
+Switching between 4-ball and 6-ball in Settings is non-destructive: balls that
+exist in both formats keep their wicket and deadness, six-ball adds Green and
+Orange fresh, and four-ball drops them.
+
 The in-progress game is saved to `UserDefaults` after every change, so it
 survives backgrounding and restarts. There is a single live game; **Reset**
-(in Settings) starts fresh.
+(in Settings) starts fresh in the current format.
 
 ## Running it
 
@@ -37,8 +43,9 @@ your own team.
 CroquetTracker/
   CroquetTrackerApp.swift      App entry point
   Models/
-    Ball.swift                 The four balls, colors, team membership
+    Ball.swift                 The balls, colors, team membership
     Team.swift                 Blue/Black and Red/Yellow sides
+    GameFormat.swift           4-ball vs 6-ball ball sets
     Wicket.swift               The 1 → Stake course and labels
     GameState.swift            Per-ball state + Codable persistence model
   ViewModels/
@@ -57,5 +64,5 @@ CroquetTracker/
 - Deadness is currently fully manual (tap to toggle) plus auto-cleared on a
   scored wicket. Tracking turn-by-turn roquets to compute deadness
   automatically would be a natural follow-up.
-- 6-ball play, saved game history, and a turn timer were considered but left
-  out of this first version to keep it focused on at-the-lawn scoring.
+- Saved game history and a turn timer were considered but left out to keep
+  this focused on at-the-lawn scoring.

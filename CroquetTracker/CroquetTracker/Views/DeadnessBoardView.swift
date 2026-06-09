@@ -6,8 +6,13 @@ import SwiftUI
 struct DeadnessBoardView: View {
     @EnvironmentObject private var store: GameStore
 
-    private let balls = Ball.allCases
-    private let headerWidth: CGFloat = 64
+    private var balls: [Ball] { store.game.balls }
+    private let headerWidth: CGFloat = 60
+
+    // Tighten the grid when there are more columns (six-ball).
+    private var chipSize: CGFloat { balls.count > 4 ? 22 : 26 }
+    private var cellHeight: CGFloat { balls.count > 4 ? 36 : 40 }
+    private var cellSpacing: CGFloat { balls.count > 4 ? 4 : 6 }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -29,23 +34,23 @@ struct DeadnessBoardView: View {
     }
 
     private var headerRow: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: cellSpacing) {
             Color.clear.frame(width: headerWidth, height: 1)
             ForEach(balls) { ball in
-                BallChip(ball: ball, size: 26)
+                BallChip(ball: ball, size: chipSize)
                     .frame(maxWidth: .infinity)
             }
         }
     }
 
     private func row(for striker: Ball) -> some View {
-        HStack(spacing: 6) {
+        HStack(spacing: cellSpacing) {
             HStack(spacing: 6) {
-                BallChip(ball: striker, size: 26)
+                BallChip(ball: striker, size: chipSize)
                 Text(striker.displayName)
                     .font(.caption)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .minimumScaleFactor(0.6)
             }
             .frame(width: headerWidth, alignment: .leading)
 
@@ -63,7 +68,7 @@ struct DeadnessBoardView: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(.tertiarySystemFill))
                 .overlay(Image(systemName: "minus").font(.caption2).foregroundStyle(.tertiary))
-                .frame(height: 40)
+                .frame(height: cellHeight)
         } else {
             let dead = store.isDead(striker, on: target)
             Button {
@@ -71,7 +76,7 @@ struct DeadnessBoardView: View {
             } label: {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(dead ? target.color : Color(.secondarySystemFill))
-                    .frame(height: 40)
+                    .frame(height: cellHeight)
                     .overlay {
                         if dead {
                             Image(systemName: "xmark")

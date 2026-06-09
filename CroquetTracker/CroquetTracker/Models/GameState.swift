@@ -24,26 +24,38 @@ struct BallState: Codable, Identifiable {
     var nextWicketLabel: String { Wicket.label(for: nextWicketIndex) }
 }
 
-/// The full game: per-ball state plus editable team names.
+/// The full game: the chosen format, per-ball state, and editable team names.
 struct GameState: Codable {
+    var format: GameFormat
     var ballStates: [BallState]
     var teamNames: [Team: String]
 
-    /// A fresh game with balls at wicket 1 and clean deadness.
-    static func newGame() -> GameState {
+    /// A fresh game with every in-play ball at wicket 1 and clean deadness.
+    static func newGame(format: GameFormat = .fourBall) -> GameState {
         GameState(
-            ballStates: Ball.allCases.map { BallState(ball: $0) },
-            teamNames: [
-                .blueBlack: Team.blueBlack.defaultName,
-                .redYellow: Team.redYellow.defaultName
-            ]
+            format: format,
+            ballStates: format.balls.map { BallState(ball: $0) },
+            teamNames: [:]
         )
+    }
+
+    /// The balls in play for the current format.
+    var balls: [Ball] { format.balls }
+
+    /// The in-play balls belonging to a team for the current format.
+    func balls(for team: Team) -> [Ball] {
+        format.balls.filter { $0.team == team }
+    }
+
+    /// The auto-generated team name, e.g. "Blue / Black" or "Blue / Black / Green".
+    func defaultName(for team: Team) -> String {
+        balls(for: team).map(\.displayName).joined(separator: " / ")
     }
 
     func name(for team: Team) -> String {
         let custom = teamNames[team]?.trimmingCharacters(in: .whitespaces)
         if let custom, !custom.isEmpty { return custom }
-        return team.defaultName
+        return defaultName(for: team)
     }
 
     func state(for ball: Ball) -> BallState {
@@ -55,12 +67,15 @@ struct GameState: Codable {
 
 extension GameState {
     enum CodingKeys: String, CodingKey {
+        case format
         case ballStates
         case teamNames
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        // Default to four-ball so games saved before formats existed still load.
+        format = try container.decodeIfPresent(GameFormat.self, forKey: .format) ?? .fourBall
         ballStates = try container.decode([BallState].self, forKey: .ballStates)
         // Stored as [String: String] so it round-trips cleanly through JSON.
         let rawNames = try container.decodeIfPresent([String: String].self, forKey: .teamNames) ?? [:]
@@ -73,6 +88,7 @@ extension GameState {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(format, forKey: .format)
         try container.encode(ballStates, forKey: .ballStates)
         let rawNames = Dictionary(uniqueKeysWithValues: teamNames.map { ($0.key.rawValue, $0.value) })
         try container.encode(rawNames, forKey: .teamNames)

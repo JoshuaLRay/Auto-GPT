@@ -30,9 +30,27 @@ final class GameStore: ObservableObject {
 
     // MARK: - Mutations
 
-    /// Start over with a clean board, keeping nothing from the previous game.
+    /// Start over with a clean board, keeping nothing from the previous game
+    /// except the chosen format.
     func resetGame() {
-        game = .newGame()
+        game = .newGame(format: game.format)
+    }
+
+    /// Switch between four- and six-ball play without disturbing balls that
+    /// exist in both: their wicket and deadness carry over. Six-ball adds Green
+    /// and Orange fresh; four-ball drops them (and any deadness pointing at them).
+    func setFormat(_ format: GameFormat) {
+        guard format != game.format else { return }
+        let newBalls = format.balls
+        let updatedStates: [BallState] = newBalls.map { ball in
+            if var existing = game.ballStates.first(where: { $0.ball == ball }) {
+                existing.deadOn = existing.deadOn.filter { newBalls.contains($0) }
+                return existing
+            }
+            return BallState(ball: ball)
+        }
+        game.format = format
+        game.ballStates = updatedStates
     }
 
     private func index(of ball: Ball) -> Int? {

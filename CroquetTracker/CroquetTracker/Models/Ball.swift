@@ -7,16 +7,19 @@ enum Ball: String, CaseIterable, Codable, Identifiable {
     case red
     case black
     case yellow
+    case green
+    case orange
 
     var id: String { rawValue }
 
     var displayName: String { rawValue.capitalized }
 
-    /// The team this ball belongs to. Blue + Black play against Red + Yellow.
+    /// The team this ball belongs to. Blue + Black (+ Green in six-ball) play
+    /// against Red + Yellow (+ Orange).
     var team: Team {
         switch self {
-        case .blue, .black: return .blueBlack
-        case .red, .yellow: return .redYellow
+        case .blue, .black, .green: return .blueBlack
+        case .red, .yellow, .orange: return .redYellow
         }
     }
 
@@ -27,13 +30,15 @@ enum Ball: String, CaseIterable, Codable, Identifiable {
         case .red: return Color(red: 0.85, green: 0.15, blue: 0.15)
         case .black: return Color(red: 0.12, green: 0.12, blue: 0.14)
         case .yellow: return Color(red: 0.98, green: 0.80, blue: 0.10)
+        case .green: return Color(red: 0.20, green: 0.62, blue: 0.30)
+        case .orange: return Color(red: 0.95, green: 0.55, blue: 0.10)
         }
     }
 
     /// A legible foreground color for text/symbols drawn on top of `color`.
     var onColor: Color {
         switch self {
-        case .yellow: return .black
+        case .yellow, .orange: return .black
         default: return .white
         }
     }
