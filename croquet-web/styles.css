@@ -1,0 +1,250 @@
+:root {
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --fill: #e4e4ea;
+  --fill2: #ededf2;
+  --text: #1c1c1e;
+  --muted: #6c6c70;
+  --line: rgba(0, 0, 0, 0.08);
+  --accent: #257a3a;
+  --hdr-w: 62px;
+  --cell-gap: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --card: #1c1c1e;
+    --fill: #2c2c2e;
+    --fill2: #242426;
+    --text: #f2f2f7;
+    --muted: #9a9a9e;
+    --line: rgba(255, 255, 255, 0.12);
+    --accent: #34b35a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(env(safe-area-inset-top), 10px) 16px 10px;
+  padding-left: max(env(safe-area-inset-left), 16px);
+  padding-right: max(env(safe-area-inset-right), 16px);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.app-bar h1 { font-size: 22px; margin: 0; font-weight: 700; }
+
+.icon-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+.icon-btn:active { background: var(--fill); }
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-left: max(env(safe-area-inset-left), 16px);
+  padding-right: max(env(safe-area-inset-right), 16px);
+  padding-bottom: max(env(safe-area-inset-bottom), 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* Deadness board */
+.board h2 { margin: 0 0 2px; font-size: 17px; }
+.board .hint { margin: 0 0 12px; }
+
+.board-grid {
+  display: grid;
+  grid-template-columns: var(--hdr-w) repeat(var(--cols, 4), minmax(0, 1fr));
+  gap: var(--cell-gap);
+  align-items: center;
+}
+
+.row-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 0;
+}
+.row-head span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.col-head { display: flex; justify-content: center; }
+
+.chip {
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  flex: 0 0 auto;
+}
+
+.cell {
+  height: 42px;
+  border: none;
+  border-radius: 9px;
+  background: var(--fill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 0;
+  width: 100%;
+}
+.cell.diag { background: var(--fill2); color: var(--muted); cursor: default; }
+.cell.dead { color: #fff; }
+
+/* Ball cards */
+.ball-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+}
+
+.ball-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px;
+  border: 2px solid var(--ball);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ball-card .head { display: flex; align-items: center; gap: 10px; }
+.ball-card .head .title { font-weight: 700; font-size: 17px; }
+.ball-card .head .team { font-size: 12px; color: var(--muted); }
+
+.ball-card input.player {
+  width: 100%;
+  padding: 9px 11px;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.wicket-row { display: flex; align-items: center; gap: 10px; }
+.wicket-info { display: flex; flex-direction: column; line-height: 1.1; }
+.wicket-info .label { font-size: 12px; color: var(--muted); }
+.wicket-info .value { font-size: 24px; font-weight: 800; }
+.wicket-info .value.done { color: var(--accent); }
+.spacer { flex: 1; }
+
+.step {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--fill);
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+}
+.step:disabled { opacity: 0.4; cursor: default; }
+
+.score {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--ball);
+  color: var(--ball-on);
+}
+.score:disabled { opacity: 0.5; cursor: default; }
+
+.hint { font-size: 12px; color: var(--muted); }
+
+/* Settings dialog */
+dialog.settings {
+  width: min(520px, 92vw);
+  border: none;
+  border-radius: 18px;
+  padding: 0;
+  background: var(--card);
+  color: var(--text);
+}
+dialog.settings::backdrop { background: rgba(0, 0, 0, 0.45); }
+dialog.settings form { padding: 20px; padding-bottom: max(env(safe-area-inset-bottom), 20px); }
+dialog.settings h2 { margin: 0 0 12px; }
+dialog.settings fieldset { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 16px; padding: 12px; }
+dialog.settings legend { font-size: 13px; color: var(--muted); padding: 0 6px; }
+
+.segmented { display: flex; background: var(--fill); border-radius: 10px; padding: 3px; gap: 3px; }
+.segmented button {
+  flex: 1;
+  border: none;
+  background: none;
+  color: var(--text);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.segmented button.active { background: var(--card); font-weight: 700; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); }
+
+.team-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.team-row .chips { display: flex; gap: 4px; flex: 0 0 auto; }
+.team-row input {
+  flex: 1;
+  padding: 9px 11px;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button.danger {
+  background: none;
+  border: none;
+  color: #e0383b;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.dialog-actions { display: flex; justify-content: flex-end; }
+button.primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}

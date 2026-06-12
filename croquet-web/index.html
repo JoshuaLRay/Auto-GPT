@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Croquet Tracker</title>
+  <meta name="description" content="Track deadness, next wickets, and player/team for American six-wicket croquet." />
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#257a3a" />
+
+  <!-- iOS home-screen / standalone hints -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Croquet" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-bar">
+    <h1>Croquet</h1>
+    <button id="settings-btn" class="icon-btn" aria-label="Settings" data-action="open-settings">⚙︎</button>
+  </header>
+
+  <main id="app">
+    <section id="board" class="card board" aria-label="Deadness board"></section>
+    <section id="cards" class="ball-grid" aria-label="Ball trackers"></section>
+  </main>
+
+  <dialog id="settings" class="settings">
+    <form method="dialog" id="settings-form">
+      <h2>Settings</h2>
+
+      <fieldset>
+        <legend>Game format</legend>
+        <div id="format-toggle" class="segmented" role="group" aria-label="Balls in play"></div>
+        <p class="hint">Six-ball adds Green and Orange. Switching keeps the balls you already
+          have — it doesn't reset the game.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Team names</legend>
+        <div id="team-names"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Game</legend>
+        <button type="button" class="danger" data-action="reset">Reset game</button>
+        <p class="hint">Clears all deadness and resets every ball to wicket 1, in the current format.</p>
+      </fieldset>
+
+      <div class="dialog-actions">
+        <button value="done" class="primary">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
