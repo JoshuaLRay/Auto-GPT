@@ -1,0 +1,20 @@
+# Local "just works" deployment. Point MEDIA_DIR at your library and run:
+#   STREAMHUB_ADMIN_PASSWORD=yourpass MEDIA_DIR=/path/to/media docker compose up --build
+services:
+  streamhub:
+    build: ../server
+    ports:
+      - "8080:8080"
+    environment:
+      STREAMHUB_ADMIN_USER: ${STREAMHUB_ADMIN_USER:-admin}
+      STREAMHUB_ADMIN_PASSWORD: ${STREAMHUB_ADMIN_PASSWORD:?set an admin password}
+      # Set a stable secret so tokens survive restarts:
+      STREAMHUB_JWT_SECRET: ${STREAMHUB_JWT_SECRET:?set a long random JWT secret}
+      # Optional: enables rich movie metadata (posters, overviews):
+      STREAMHUB_TMDB_API_KEY: ${STREAMHUB_TMDB_API_KEY:-}
+    volumes:
+      - streamhub-data:/data
+      - ${MEDIA_DIR:-./media}:/media:ro
+
+volumes:
+  streamhub-data:

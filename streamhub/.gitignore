@@ -1,0 +1,15 @@
+# Runtime data & build artifacts
+data/
+media/
+*.db
+*.db-shm
+*.db-wal
+/server/streamhub
+/server/data/
+
+# Local env
+.env
+
+# Node (Phase 2 web app)
+node_modules/
+dist/
