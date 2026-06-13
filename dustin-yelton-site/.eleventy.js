@@ -3,8 +3,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/images");
-  // The CMS admin (Sveltia) is a static app — pass it through untouched.
-  eleventyConfig.addPassthroughCopy("src/admin");
 
   return {
     dir: {

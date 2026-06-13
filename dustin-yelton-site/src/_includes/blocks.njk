@@ -1,0 +1,102 @@
+{# Modular section renderer.
+   A page's `blocks` array is a list of section objects, each with a `type`.
+   Dustin reorders / adds / removes / hides these in the CMS; this macro turns
+   them into the same markup the site has always used. #}
+
+{% macro renderBlocks(blocks, site) %}
+{% for b in blocks %}
+{% if not b.hidden %}
+
+{# ---------- HERO ---------- #}
+{% if b.type == "hero" %}
+<section class="hero"{% if b.image %} style="background:linear-gradient(180deg, rgba(22,30,51,.78), rgba(22,30,51,.86)), url('{{ b.image }}') center/cover no-repeat;"{% endif %}>
+  <div class="wrap">
+    {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+    <h1>{{ b.heading }}</h1>
+    {% if b.text %}<p class="lead">{{ b.text }}</p>{% endif %}
+    {% if b.badges %}<div class="hero-badges">{% for bg in b.badges %}<span class="badge">{{ bg.text }}</span>{% endfor %}</div>{% endif %}
+    <div class="btn-row">
+      {% if b.primaryLabel %}<a class="btn" href="{{ b.primaryUrl }}">{{ b.primaryLabel }}</a>{% endif %}
+      {% if b.showPhoneButton %}<a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+
+{# ---------- CARDS (services / values / why) ---------- #}
+{% elif b.type == "cards" %}
+<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+  <div class="wrap{% if b.align == 'center' %} center{% endif %}">
+    {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+    {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    {% if b.text %}<p class="lead">{{ b.text }}</p>{% endif %}
+  </div>
+  <div class="wrap" style="margin-top:36px;">
+    <div class="grid grid-3">
+      {% for it in b.items %}
+      <div class="card">
+        {% if it.icon %}<div class="icon">{{ it.icon }}</div>{% endif %}
+        {% if it.title %}<h3>{{ it.title }}</h3>{% endif %}
+        {% if it.body %}<p>{{ it.body }}</p>{% endif %}
+        {% if it.linkText %}<a class="more" href="{{ it.linkUrl }}">{{ it.linkText }}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- GALLERY (photo strip) ---------- #}
+{% elif b.type == "gallery" %}
+<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+  <div class="wrap">
+    <div class="center">
+      {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+      {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    </div>
+    <div class="work-strip" style="margin-top:28px;">
+      {% for it in b.items %}
+        {% if it.image %}<div class="shot" style="background-image:url('{{ it.image }}');background-size:cover;background-position:center;border-style:solid;"></div>
+        {% else %}<div class="shot">{{ it.caption }}</div>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- TESTIMONIAL ---------- #}
+{% elif b.type == "testimonial" %}
+<section class="section section--navy">
+  <div class="wrap">
+    <div class="quote">
+      {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+      <blockquote>“{{ b.quote }}”</blockquote>
+      {% if b.author %}<cite>— {{ b.author }}</cite>{% endif %}
+    </div>
+  </div>
+</section>
+
+{# ---------- TEXT (simple heading + paragraph) ---------- #}
+{% elif b.type == "text" %}
+<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+  <div class="wrap{% if b.align == 'center' %} center{% endif %}">
+    {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+    {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    {% if b.text %}<p class="lead">{{ b.text }}</p>{% endif %}
+    {% if b.primaryLabel %}<div class="btn-row" style="margin-top:18px;"><a class="btn" href="{{ b.primaryUrl }}">{{ b.primaryLabel }}</a>{% if b.showPhoneButton %}<a class="btn btn--dark" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>{% endif %}</div>{% endif %}
+  </div>
+</section>
+
+{# ---------- CTA BAND ---------- #}
+{% elif b.type == "cta" %}
+<section class="cta-band section--tight">
+  <div class="wrap">
+    <h2 class="mb-0">{{ b.heading }}</h2>
+    <div class="btn-row">
+      {% if b.primaryLabel %}<a class="btn btn--dark" href="{{ b.primaryUrl }}">{{ b.primaryLabel }}</a>{% endif %}
+      {% if b.showPhoneButton %}<a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>{% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endif %}
+{% endfor %}
+{% endmacro %}

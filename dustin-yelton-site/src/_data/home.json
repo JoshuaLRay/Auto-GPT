@@ -1,53 +1,67 @@
 {
   "seoTitle": "Dustin Yelton Painting & Cleaning | Northern Kentucky",
   "seoDescription": "Professional interior painting and cleaning services in Northern Kentucky. Licensed, insured, and detail-obsessed. Free estimates in Pendleton, Bracken, Campbell & Kenton counties.",
-  "heroEyebrow": "Northern Kentucky • Licensed & Insured",
-  "heroH1": "Professional interior painting & cleaning you can trust.",
-  "heroLead": "Crisp lines, clean spaces, and work done right the first time — serving Pendleton, Bracken, Campbell & Kenton counties.",
-  "heroBadges": [
-    { "text": "Licensed & Insured" },
-    { "text": "EPA Lead-Safe Certified" },
-    { "text": "Free Estimates" },
-    { "text": "Locally Owned" }
-  ],
-  "servicesEyebrow": "What I Do",
-  "servicesH2": "Two trades, one standard: done right.",
-  "servicesLead": "Whether you need a room repainted or a space kept spotless, you get the same care and attention to detail.",
-  "services": [
+  "blocks": [
     {
-      "icon": "🖌️",
-      "title": "Interior Painting",
-      "body": "Walls, trim, ceilings, doors, and cabinet refinishing — smooth, even coats and clean edges, with the prep work that makes paint last.",
-      "linkText": "See painting services",
-      "linkUrl": "/painting/"
+      "type": "hero",
+      "hidden": false,
+      "eyebrow": "Northern Kentucky • Licensed & Insured",
+      "heading": "Professional interior painting & cleaning you can trust.",
+      "text": "Crisp lines, clean spaces, and work done right the first time — serving Pendleton, Bracken, Campbell & Kenton counties.",
+      "image": "",
+      "badges": [
+        { "text": "Licensed & Insured" },
+        { "text": "EPA Lead-Safe Certified" },
+        { "text": "Free Estimates" },
+        { "text": "Locally Owned" }
+      ],
+      "primaryLabel": "Get a Free Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
     },
     {
-      "icon": "🧽",
-      "title": "Cleaning & Custodial",
-      "body": "Residential deep cleans and recurring commercial custodial service. One-time, weekly, biweekly, or monthly — built around your schedule.",
-      "linkText": "See cleaning services",
-      "linkUrl": "/cleaning/"
+      "type": "cards",
+      "hidden": false,
+      "background": "default",
+      "align": "center",
+      "eyebrow": "What I Do",
+      "heading": "Two trades, one standard: done right.",
+      "text": "Whether you need a room repainted or a space kept spotless, you get the same care and attention to detail.",
+      "items": [
+        { "icon": "🖌️", "title": "Interior Painting", "body": "Walls, trim, ceilings, doors, and cabinet refinishing — smooth, even coats and clean edges, with the prep work that makes paint last.", "linkText": "See painting services", "linkUrl": "/painting/" },
+        { "icon": "🧽", "title": "Cleaning & Custodial", "body": "Residential deep cleans and recurring commercial custodial service. One-time, weekly, biweekly, or monthly — built around your schedule.", "linkText": "See cleaning services", "linkUrl": "/cleaning/" },
+        { "icon": "📋", "title": "Free, No-Pressure Estimates", "body": "Every job is quoted in person so the price fits the work. Send a few photos to get started and I'll follow up quickly.", "linkText": "Request an estimate", "linkUrl": "/contact/" }
+      ]
     },
     {
-      "icon": "📋",
-      "title": "Free, No-Pressure Estimates",
-      "body": "Every job is quoted in person so the price fits the work. Send a few photos to get started and I'll follow up quickly.",
-      "linkText": "Request an estimate",
-      "linkUrl": "/contact/"
+      "type": "gallery",
+      "hidden": false,
+      "background": "sand",
+      "eyebrow": "Recent Work",
+      "heading": "A few projects from around the area",
+      "items": [
+        { "image": "", "caption": "Finished room" },
+        { "image": "", "caption": "Trim detail" },
+        { "image": "", "caption": "Before / after" },
+        { "image": "", "caption": "Cabinet refinish" },
+        { "image": "", "caption": "Clean space" },
+        { "image": "", "caption": "Exterior trim" }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "hidden": false,
+      "eyebrow": "What Clients Say",
+      "quote": "Dustin showed up on time, taped everything off carefully, and left the room looking better than I imagined. Cleaned up like he was never here.",
+      "author": "Future Happy Customer"
+    },
+    {
+      "type": "cta",
+      "hidden": false,
+      "heading": "Ready for a fresh coat or a fresh start?",
+      "primaryLabel": "Get a Free Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
     }
-  ],
-  "workEyebrow": "Recent Work",
-  "workH2": "A few projects from around the area",
-  "projects": [
-    { "image": "", "caption": "Finished room" },
-    { "image": "", "caption": "Trim detail" },
-    { "image": "", "caption": "Before / after" },
-    { "image": "", "caption": "Cabinet refinish" },
-    { "image": "", "caption": "Clean space" },
-    { "image": "", "caption": "Exterior trim" }
-  ],
-  "testimonialEyebrow": "What Clients Say",
-  "testimonialQuote": "Dustin showed up on time, taped everything off carefully, and left the room looking better than I imagined. Cleaned up like he was never here.",
-  "testimonialAuthor": "Future Happy Customer",
-  "ctaHeading": "Ready for a fresh coat or a fresh start?"
+  ]
 }
