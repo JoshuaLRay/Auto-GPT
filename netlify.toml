@@ -1,0 +1,16 @@
+# Netlify configuration for the Dustin Yelton static site.
+#
+# The website lives in the dustin-yelton-site/ subfolder of this repo. The repo
+# root also contains an unrelated Python project (Auto-GPT) with a
+# requirements.txt — without this file, Netlify auto-detects that and tries to
+# run a Python build, which fails. Setting `base` to the site folder means
+# Netlify only ever looks inside dustin-yelton-site/, where there is nothing to
+# build: it's plain HTML/CSS/JS.
+#
+# With `base` set, `publish` is resolved relative to the base directory, so "."
+# means "publish the base directory itself" (where index.html lives).
+
+[build]
+  base = "dustin-yelton-site"
+  publish = "."
+  command = "echo 'Static site — no build step required.'"
