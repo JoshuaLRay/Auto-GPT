@@ -1,66 +1,55 @@
-# Dustin Yelton Painting & Cleaning — Proof of Concept
+# Dustin Yelton Painting & Cleaning — Website
 
-A complete, working 5-page website for a Northern Kentucky painter & cleaner.
-Pure HTML/CSS/JS — **no build step, no framework, no dependencies.** Open
-`index.html` in any browser and the whole site works.
+A 5-page website for a Northern Kentucky painter & cleaner, built with
+**Eleventy (11ty)** and editable by a non-technical owner through a built-in,
+mobile-friendly CMS at **`/admin`**.
 
-## Pages
+## How it's structured
 
-| File | Purpose |
-|------|---------|
-| `index.html` | Home — hook, three service tiles, recent-work strip, testimonial, CTA |
-| `painting.html` | Painting services, process, before/after, service area, licensing |
-| `cleaning.html` | Residential cleaning + commercial/custodial, frequency options |
-| `about.html` | Dustin's bio + the "music & art coming soon" creative section |
-| `contact.html` | Free-estimate form, phone/email/hours, service-area map slot |
+```
+dustin-yelton-site/
+├─ src/
+│  ├─ _data/        ← all editable content (JSON: site, home, painting, …)
+│  ├─ _includes/    ← shared header + footer
+│  ├─ *.njk         ← page templates (render the data)
+│  ├─ css/ js/ images/
+│  └─ admin/        ← Sveltia CMS (the /admin editor) + config.yml
+├─ _site/           ← generated output (git-ignored; Netlify builds this)
+├─ .eleventy.js     ← Eleventy config
+└─ package.json
+```
 
-Design lives in `css/styles.css` (all colors/fonts are CSS variables at the
-top — change those to rebrand). Behavior is in `js/main.js` (mobile menu +
-form handling). Hero artwork is `images/hero.svg`.
+**Editing content:** non-technical owners use `/admin` (see `ADMIN-SETUP.md`).
+**Editing content as a developer:** just edit the JSON in `src/_data/`.
+The HTML design lives untouched in `src/css/styles.css`.
 
-## Preview locally
+## Local development
 
 ```bash
 cd dustin-yelton-site
-python3 -m http.server 8080
-# open http://localhost:8080
+npm install
+npm run dev      # live preview at http://localhost:8080
+# or
+npm run build    # outputs to _site/
 ```
 
-Or just double-click `index.html`.
+## Deploying (Netlify)
 
-## Before launch — replace these placeholders
+Already configured in `../netlify.toml`: base `dustin-yelton-site`, build
+`npm run build`, publish `_site`. Push to the branch and Netlify rebuilds.
 
-Everything that needs real data is flagged in-page with a yellow `PLACEHOLDER`
-/ `VERIFY` / `SETUP` tag. The big ones:
+## Setup checklist (placeholders to replace)
 
-1. **Phone number** — find/replace `(859) 555-0123` and `+18595550123`.
-2. **Email** — find/replace `hello@dustinyelton.com`.
-3. **Business name** — currently "Dustin Yelton Painting & Cleaning".
-4. **Band name** — `[Band Name]` on `about.html`.
-5. **Photos** — work-strip tiles, before/after, portrait, art thumbnails.
-6. **Licensing language** — confirm license #, insurance, EPA Lead-Safe RRP
-   before publishing those claims.
-7. **Contact form** — paste a real [Formspree](https://formspree.io) endpoint
-   into the `action` of `#estimate-form` (free tier emails submissions
-   straight to Dustin). Until then the form runs in safe "demo mode."
-8. **Map** — embed a Google Map of the service area on `contact.html`.
+1. **Phone / email / business name** — edit in `/admin` → *Site-wide Settings*,
+   or in `src/_data/site.json`.
+2. **Photos** — add via `/admin` (work strip, before/after, portrait, art).
+3. **Band name** — `/admin` → *About Page* → Creative paragraph.
+4. **Licensing language** — confirm license #, insurance, EPA Lead-Safe before
+   publishing those claims.
+5. **Contact form** — set a Formspree endpoint in `src/contact.njk`, or switch
+   to Netlify Forms.
+6. **Map** — embed a Google Map on the contact page.
+7. **Admin login** — follow `ADMIN-SETUP.md` to enable `/admin`.
 
-## Deploy (pick one — all free, no credit card)
-
-**Netlify Drop (fastest, ~60 seconds):**
-Go to <https://app.netlify.com/drop> and drag the `dustin-yelton-site` folder
-onto the page. You get a live URL instantly to share with Dustin.
-
-**GitHub Pages:** push this repo, then Settings → Pages → deploy from branch,
-folder `/dustin-yelton-site`. (Note: this is the simplest if it's its own repo;
-in a subfolder of a larger repo you may prefer Netlify/Cloudflare.)
-
-**Cloudflare Pages / Vercel:** connect the repo, set the output/root directory
-to `dustin-yelton-site`, no build command. Both have generous free tiers.
-
-## Why a static site for the POC?
-
-It's something that can be built end-to-end and shown to Dustin *today* — free,
-fast, zero maintenance. It also doubles as the visual + content spec for the
-Squarespace build (see `../squarespace-kit/`) if that's the production path he
-chooses.
+See also `../squarespace-kit/` (Squarespace alternative) and
+`../DUSTIN-YELTON-LAUNCH-ROADMAP.md` (business setup).

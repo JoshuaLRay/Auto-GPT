@@ -1,16 +1,16 @@
-# Netlify configuration for the Dustin Yelton static site.
+# Netlify configuration for the Dustin Yelton site.
 #
-# The website lives in the dustin-yelton-site/ subfolder of this repo. The repo
-# root also contains an unrelated Python project (Auto-GPT) with a
-# requirements.txt — without this file, Netlify auto-detects that and tries to
-# run a Python build, which fails. Setting `base` to the site folder means
-# Netlify only ever looks inside dustin-yelton-site/, where there is nothing to
-# build: it's plain HTML/CSS/JS.
+# The site now uses Eleventy (11ty) to generate HTML from editable data files,
+# so Dustin can edit content through the /admin CMS. Netlify runs the build.
 #
-# With `base` set, `publish` is resolved relative to the base directory, so "."
-# means "publish the base directory itself" (where index.html lives).
+# `base` points Netlify at the site folder (so it sees package.json and builds
+# Node, NOT the unrelated Python project at the repo root). With `base` set,
+# `command` runs inside it and `publish` is resolved relative to it.
 
 [build]
   base = "dustin-yelton-site"
-  publish = "."
-  command = "echo 'Static site — no build step required.'"
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "20"

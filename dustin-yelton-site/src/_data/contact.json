@@ -1,0 +1,16 @@
+{
+  "seoTitle": "Get a Free Estimate | Dustin Yelton Painting & Cleaning",
+  "seoDescription": "Request a free painting or cleaning estimate in Northern Kentucky. Call, email, or send a few photos and Dustin will follow up quickly.",
+  "eyebrow": "Free Estimate",
+  "h1": "Let's get your project started.",
+  "lead": "Tell me a little about what you need. Photos help me give you a faster, more accurate quote — but they're optional.",
+  "serviceOptions": [
+    { "label": "Interior Painting" },
+    { "label": "Cabinet Refinishing" },
+    { "label": "Residential Cleaning" },
+    { "label": "Commercial / Custodial" },
+    { "label": "Not sure yet — let's talk" }
+  ],
+  "infoH2": "Prefer to call or text?",
+  "ctaHeading": "Quick questions? Just call."
+}

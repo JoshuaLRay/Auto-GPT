@@ -1,0 +1,98 @@
+---
+permalink: /painting/index.html
+---
+{% set active = "painting" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ painting.seoTitle }}</title>
+  <meta name="description" content="{{ painting.seoDescription }}" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  {% include "header.njk" %}
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <p class="eyebrow">{{ painting.eyebrow }}</p>
+      <h1>{{ painting.h1 }}</h1>
+      <p class="lead">{{ painting.lead }}</p>
+      <div class="btn-row" style="margin-top:18px;">
+        <a class="btn" href="/contact/">Get a Free Estimate</a>
+        <a class="btn btn--dark" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Services</p>
+        <h2>What I paint</h2>
+        <ul class="checks">
+          {% for item in painting.whatIPaint %}<li><strong>{{ item.strong }}</strong> {{ item.rest }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">The Process</p>
+        <h2>How a job goes</h2>
+        <ul class="checks">
+          {% for item in painting.howItGoes %}<li><strong>{{ item.strong }}</strong> {{ item.rest }}</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">Before & After</p>
+        <h2>The difference is in the details</h2>
+      </div>
+      <div class="ba-row" style="margin-top:26px;">
+        {% for ba in painting.beforeAfter %}
+        {% if ba.image %}
+        <div class="ba" style="background-image:url('{{ ba.image }}');background-size:cover;background-position:center;border-style:solid;"><span class="tag">{{ ba.tag }}</span></div>
+        {% else %}
+        <div class="ba"><span class="tag">{{ ba.tag }}</span> Project photo</div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Service Area</p>
+        <h2>Proudly serving Northern Kentucky</h2>
+        <p>{{ painting.serviceAreaIntro }}</p>
+        <ul class="checks">
+          {% for area in painting.serviceAreas %}<li>{{ area.name }}</li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <div class="soon-card">
+          <h3 class="mt-0">{{ painting.calloutH3 }}</h3>
+          <p class="mb-0">{{ painting.calloutBody }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band section--tight">
+    <div class="wrap">
+      <h2 class="mb-0">{{ painting.ctaHeading }}</h2>
+      <div class="btn-row">
+        <a class="btn btn--dark" href="/contact/">Request Estimate</a>
+        <a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
+      </div>
+    </div>
+  </section>
+
+  {% include "footer.njk" %}
+  <script src="/js/main.js"></script>
+</body>
+</html>

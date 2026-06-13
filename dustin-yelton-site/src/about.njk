@@ -1,0 +1,93 @@
+---
+permalink: /about/index.html
+---
+{% set active = "about" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ about.seoTitle }}</title>
+  <meta name="description" content="{{ about.seoDescription }}" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  {% include "header.njk" %}
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">About</p>
+        <h1>{{ about.h1 }}</h1>
+        {% for b in about.bio %}<p>{{ b.paragraph }}</p>{% endfor %}
+        <div class="btn-row" style="margin-top:8px;">
+          <a class="btn" href="/contact/">Work With Me</a>
+        </div>
+      </div>
+      <div>
+        {% if about.portrait %}
+        <div class="about-portrait" style="background-image:url('{{ about.portrait }}');background-size:cover;background-position:center;border-style:solid;"></div>
+        {% else %}
+        <div class="about-portrait">Photo of Dustin</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">{{ about.creativeEyebrow }}</p>
+          <h2>{{ about.creativeH2 }}</h2>
+          <p>{{ about.creativeBody1 }}</p>
+          <p>{{ about.creativeBody2 }}</p>
+          <div class="soon-card">
+            <h3 class="mt-0">{{ about.creativeCalloutTitle }}</h3>
+            <p class="mb-0">{{ about.creativeCalloutBody }} <a href="/contact/">Drop me a line.</a></p>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">A Few Pieces</p>
+          <div class="art-thumbs">
+            {% for t in about.artThumbs %}
+            {% if t.image %}
+            <div class="thumb" style="background-image:url('{{ t.image }}');background-size:cover;background-position:center;border-style:solid;"></div>
+            {% else %}
+            <div class="thumb">{{ t.label }}</div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <p class="eyebrow">{{ about.valuesEyebrow }}</p>
+      <h2>{{ about.valuesH2 }}</h2>
+    </div>
+    <div class="wrap" style="margin-top:30px;">
+      <div class="grid grid-3">
+        {% for c in about.valueCards %}
+        <div class="card"><h3>{{ c.title }}</h3><p>{{ c.body }}</p></div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band section--tight">
+    <div class="wrap">
+      <h2 class="mb-0">{{ about.ctaHeading }}</h2>
+      <div class="btn-row">
+        <a class="btn btn--dark" href="/contact/">Get a Free Estimate</a>
+        <a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
+      </div>
+    </div>
+  </section>
+
+  {% include "footer.njk" %}
+  <script src="/js/main.js"></script>
+</body>
+</html>

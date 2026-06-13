@@ -1,0 +1,93 @@
+---
+permalink: /index.html
+---
+{% set active = "home" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ home.seoTitle }}</title>
+  <meta name="description" content="{{ home.seoDescription }}" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  {% include "header.njk" %}
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">{{ home.heroEyebrow }}</p>
+      <h1>{{ home.heroH1 }}</h1>
+      <p class="lead">{{ home.heroLead }}</p>
+      <div class="hero-badges">
+        {% for b in home.heroBadges %}<span class="badge">{{ b.text }}</span>{% endfor %}
+      </div>
+      <div class="btn-row">
+        <a class="btn" href="/contact/">Get a Free Estimate</a>
+        <a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <p class="eyebrow">{{ home.servicesEyebrow }}</p>
+      <h2>{{ home.servicesH2 }}</h2>
+      <p class="lead">{{ home.servicesLead }}</p>
+    </div>
+    <div class="wrap" style="margin-top:36px;">
+      <div class="grid grid-3">
+        {% for s in home.services %}
+        <div class="card">
+          <div class="icon">{{ s.icon }}</div>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.body }}</p>
+          <a class="more" href="{{ s.linkUrl }}">{{ s.linkText }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">{{ home.workEyebrow }}</p>
+        <h2>{{ home.workH2 }}</h2>
+      </div>
+      <div class="work-strip" style="margin-top:28px;">
+        {% for p in home.projects %}
+        {% if p.image %}
+        <div class="shot" style="background-image:url('{{ p.image }}');background-size:cover;background-position:center;border-style:solid;"></div>
+        {% else %}
+        <div class="shot">{{ p.caption }}</div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="wrap">
+      <div class="quote">
+        <p class="eyebrow">{{ home.testimonialEyebrow }}</p>
+        <blockquote>“{{ home.testimonialQuote }}”</blockquote>
+        <cite>— {{ home.testimonialAuthor }}</cite>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band section--tight">
+    <div class="wrap">
+      <h2 class="mb-0">{{ home.ctaHeading }}</h2>
+      <div class="btn-row">
+        <a class="btn btn--dark" href="/contact/">Get a Free Estimate</a>
+        <a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
+      </div>
+    </div>
+  </section>
+
+  {% include "footer.njk" %}
+  <script src="/js/main.js"></script>
+</body>
+</html>
