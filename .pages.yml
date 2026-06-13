@@ -1,0 +1,220 @@
+# Pages CMS configuration (https://pagescms.org)
+#
+# This lets Dustin edit the website at app.pagescms.org by signing in with
+# GitHub — no OAuth app or auth server to deploy. It edits the same data files
+# the site is built from (dustin-yelton-site/src/_data/*.json). All paths are
+# relative to the repository root.
+
+media:
+  input: dustin-yelton-site/src/images/uploads
+  output: /images/uploads
+  extensions: [jpg, jpeg, png, webp, gif, svg]
+
+content:
+  - name: settings
+    label: Site Settings
+    type: file
+    path: dustin-yelton-site/src/_data/site.json
+    format: json
+    fields:
+      - { name: businessName, label: "Business Name (top line)", type: string }
+      - { name: businessNameSub, label: "Subtitle (under name)", type: string }
+      - { name: businessNameFull, label: "Full Business Name (footer)", type: string }
+      - { name: tagline, label: "Tagline", type: string }
+      - { name: phoneDisplay, label: "Phone (as shown)", type: string }
+      - { name: phoneHref, label: "Phone (dial format, e.g. +18595551234)", type: string }
+      - { name: email, label: "Email", type: string }
+      - { name: hoursText, label: "Business Hours", type: string }
+      - { name: serviceAreaShort, label: "Service Area (footer line)", type: string }
+      - { name: footerBlurb, label: "Footer Description", type: text }
+      - { name: footerBadgeLine, label: "Footer Badge Line", type: string }
+      - { name: footerCreativeNote, label: "Footer Note (right)", type: string }
+
+  - name: home
+    label: Home Page
+    type: file
+    path: dustin-yelton-site/src/_data/home.json
+    format: json
+    fields:
+      - { name: seoTitle, label: "SEO Title", type: string }
+      - { name: seoDescription, label: "SEO Description", type: text }
+      - { name: heroEyebrow, label: "Hero — small label", type: string }
+      - { name: heroH1, label: "Hero — headline", type: string }
+      - { name: heroLead, label: "Hero — subtext", type: text }
+      - name: heroBadges
+        label: "Hero Badges"
+        type: object
+        list: true
+        fields:
+          - { name: text, label: "Badge", type: string }
+      - { name: servicesEyebrow, label: "Services — small label", type: string }
+      - { name: servicesH2, label: "Services — heading", type: string }
+      - { name: servicesLead, label: "Services — subtext", type: text }
+      - name: services
+        label: "Service Tiles"
+        type: object
+        list: true
+        fields:
+          - { name: icon, label: "Icon (emoji)", type: string }
+          - { name: title, label: "Title", type: string }
+          - { name: body, label: "Description", type: text }
+          - { name: linkText, label: "Link Text", type: string }
+          - { name: linkUrl, label: "Link URL", type: string }
+      - { name: workEyebrow, label: "Recent Work — small label", type: string }
+      - { name: workH2, label: "Recent Work — heading", type: string }
+      - name: projects
+        label: "Recent Work Photos"
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Photo", type: image }
+          - { name: caption, label: "Caption (shown if no photo)", type: string }
+      - { name: testimonialEyebrow, label: "Testimonial — small label", type: string }
+      - { name: testimonialQuote, label: "Testimonial — quote", type: text }
+      - { name: testimonialAuthor, label: "Testimonial — author", type: string }
+      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
+
+  - name: painting
+    label: Painting Page
+    type: file
+    path: dustin-yelton-site/src/_data/painting.json
+    format: json
+    fields:
+      - { name: seoTitle, label: "SEO Title", type: string }
+      - { name: seoDescription, label: "SEO Description", type: text }
+      - { name: eyebrow, label: "Small label", type: string }
+      - { name: h1, label: "Headline", type: string }
+      - { name: lead, label: "Intro paragraph", type: text }
+      - name: whatIPaint
+        label: "What I Paint (checklist)"
+        type: object
+        list: true
+        fields:
+          - { name: strong, label: "Bold part", type: string }
+          - { name: rest, label: "Rest", type: string }
+      - name: howItGoes
+        label: "How a Job Goes (checklist)"
+        type: object
+        list: true
+        fields:
+          - { name: strong, label: "Bold part", type: string }
+          - { name: rest, label: "Rest", type: string }
+      - name: beforeAfter
+        label: "Before / After Photos"
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Photo", type: image }
+          - { name: tag, label: "Tag (Before / After)", type: string }
+      - { name: serviceAreaIntro, label: "Service-area intro", type: text }
+      - name: serviceAreas
+        label: "Service Areas"
+        type: object
+        list: true
+        fields:
+          - { name: name, label: "Area", type: string }
+      - { name: calloutH3, label: "Licensing callout — title", type: string }
+      - { name: calloutBody, label: "Licensing callout — text", type: text }
+      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
+
+  - name: cleaning
+    label: Cleaning Page
+    type: file
+    path: dustin-yelton-site/src/_data/cleaning.json
+    format: json
+    fields:
+      - { name: seoTitle, label: "SEO Title", type: string }
+      - { name: seoDescription, label: "SEO Description", type: text }
+      - { name: eyebrow, label: "Small label", type: string }
+      - { name: h1, label: "Headline", type: string }
+      - { name: lead, label: "Intro paragraph", type: text }
+      - name: residential
+        label: "Residential Cleaning (list)"
+        type: object
+        list: true
+        fields:
+          - { name: text, label: "Item", type: string }
+      - name: frequency
+        label: "Frequency Options"
+        type: object
+        list: true
+        fields:
+          - { name: strong, label: "Bold part", type: string }
+          - { name: rest, label: "Rest", type: string }
+      - { name: frequencyNote, label: "Frequency note", type: text }
+      - { name: commercialH2, label: "Commercial — heading", type: string }
+      - { name: commercialIntro, label: "Commercial — intro", type: text }
+      - name: commercial
+        label: "Commercial (list)"
+        type: object
+        list: true
+        fields:
+          - { name: text, label: "Item", type: string }
+      - name: whyCards
+        label: "Why Clients Stay (cards)"
+        type: object
+        list: true
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: body, label: "Body", type: text }
+      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
+
+  - name: about
+    label: About Page
+    type: file
+    path: dustin-yelton-site/src/_data/about.json
+    format: json
+    fields:
+      - { name: seoTitle, label: "SEO Title", type: string }
+      - { name: seoDescription, label: "SEO Description", type: text }
+      - { name: h1, label: "Headline", type: string }
+      - name: bio
+        label: "Bio Paragraphs"
+        type: object
+        list: true
+        fields:
+          - { name: paragraph, label: "Paragraph", type: text }
+      - { name: portrait, label: "Portrait Photo", type: image }
+      - { name: creativeEyebrow, label: "Creative — small label", type: string }
+      - { name: creativeH2, label: "Creative — heading", type: string }
+      - { name: creativeBody1, label: "Creative — paragraph 1", type: text }
+      - { name: creativeBody2, label: "Creative — paragraph 2", type: text }
+      - { name: creativeCalloutTitle, label: "Creative callout — title", type: string }
+      - { name: creativeCalloutBody, label: "Creative callout — text", type: text }
+      - name: artThumbs
+        label: "Art Thumbnails"
+        type: object
+        list: true
+        fields:
+          - { name: image, label: "Art image", type: image }
+          - { name: label, label: "Label (shown if no image)", type: string }
+      - { name: valuesEyebrow, label: "Values — small label", type: string }
+      - { name: valuesH2, label: "Values — heading", type: string }
+      - name: valueCards
+        label: "Value Cards"
+        type: object
+        list: true
+        fields:
+          - { name: title, label: "Title", type: string }
+          - { name: body, label: "Body", type: text }
+      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
+
+  - name: contact
+    label: Contact Page
+    type: file
+    path: dustin-yelton-site/src/_data/contact.json
+    format: json
+    fields:
+      - { name: seoTitle, label: "SEO Title", type: string }
+      - { name: seoDescription, label: "SEO Description", type: text }
+      - { name: eyebrow, label: "Small label", type: string }
+      - { name: h1, label: "Headline", type: string }
+      - { name: lead, label: "Intro paragraph", type: text }
+      - name: serviceOptions
+        label: "Form — Service Options"
+        type: object
+        list: true
+        fields:
+          - { name: label, label: "Option", type: string }
+      - { name: infoH2, label: "Contact info — heading", type: string }
+      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
