@@ -48,6 +48,27 @@ npm run build    # outputs to _site/
 Already configured in `../netlify.toml`: base `dustin-yelton-site`, build
 `npm run build`, publish `_site`. Push to the branch and Netlify rebuilds.
 
+## Going live on Google (the launch switch)
+
+While the site is a placeholder POC it is **hidden from search engines**
+(`noindex` on every page + a `robots.txt` that disallows all crawlers). The
+controls live in `src/_data/seo.json` (kept out of the CMS so it can't be
+toggled by accident):
+
+```json
+{ "indexable": false, "siteUrl": "" }
+```
+
+To launch for real:
+1. Replace all placeholder content (phone, photos, real testimonial, etc.).
+2. Connect the real domain in Netlify.
+3. In `seo.json`, set `"indexable": true` and `"siteUrl": "https://dustinyelton.com"`.
+   This removes the `noindex` tags, switches `robots.txt` to *allow* crawling,
+   and makes `sitemap.xml` use absolute URLs.
+4. Add the site to **Google Search Console** and submit `…/sitemap.xml`.
+5. Set up the **Google Business Profile** (see the launch roadmap) — for a local
+   trade this drives more calls than on-page SEO.
+
 ## Setup checklist (placeholders to replace)
 
 1. **Phone / email / business name** — Pages CMS → *Site Settings*, or
