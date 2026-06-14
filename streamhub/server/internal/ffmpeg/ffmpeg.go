@@ -82,6 +82,24 @@ func (t Tools) Probe(ctx context.Context, path string) (*MediaInfo, error) {
 	return info, nil
 }
 
+// GenerateSample synthesizes a short H.264/AAC test clip at outPath using
+// FFmpeg's built-in sources (no input files needed). Handy for verifying the
+// streaming pipeline on a fresh/empty deployment.
+func (t Tools) GenerateSample(ctx context.Context, outPath string) error {
+	cmd := exec.CommandContext(ctx, t.FFmpeg,
+		"-nostdin", "-y",
+		"-f", "lavfi", "-i", "testsrc=duration=30:size=1280x720:rate=30",
+		"-f", "lavfi", "-i", "sine=frequency=440:duration=30",
+		"-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p",
+		"-c:a", "aac", "-shortest",
+		outPath,
+	)
+	if out, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("generate sample: %w: %s", err, string(out))
+	}
+	return nil
+}
+
 // HLSArgs are the parameters for building an HLS-producing ffmpeg command.
 type HLSArgs struct {
 	Input       string // local input path

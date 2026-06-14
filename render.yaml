@@ -1,0 +1,30 @@
+# StreamHub — Render Blueprint (https://render.com).
+#
+# Deploys the single StreamHub container (API + web UI + HLS) from this repo.
+# FREE TIER NOTE: free web services have NO persistent disk and sleep when idle,
+# so uploaded media and the database are ephemeral. STREAMHUB_GENERATE_SAMPLE=1
+# auto-creates a sample clip on each boot so there's always something to stream.
+# For a persistent library, switch `plan` to `starter` and add a disk (see
+# streamhub/docs/DEPLOY.md).
+services:
+  - type: web
+    name: streamhub
+    runtime: docker
+    rootDir: streamhub
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - key: STREAMHUB_ADMIN_USER
+        value: admin
+      - key: STREAMHUB_ADMIN_PASSWORD
+        sync: false # set this (a strong password) in the Render dashboard
+      - key: STREAMHUB_JWT_SECRET
+        generateValue: true # Render generates a strong random secret
+      - key: STREAMHUB_GENERATE_SAMPLE
+        value: "1"
+      - key: STREAMHUB_MEDIA_DIRS
+        value: /media
+      - key: STREAMHUB_DATA_DIR
+        value: /data

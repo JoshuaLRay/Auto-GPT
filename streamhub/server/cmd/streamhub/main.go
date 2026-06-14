@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"syscall"
 	"time"
 
@@ -50,24 +51,32 @@ func main() {
 		log.Fatalf("init stream manager: %v", err)
 	}
 
+	var uploadDir string
+	if len(cfg.MediaDirs) > 0 {
+		uploadDir = cfg.MediaDirs[0]
+	}
 	srv := &api.Server{
-		Auth:    authSvc,
-		Repo:    repo,
-		Scanner: scanner,
-		Store:   store,
-		Streams: streams,
-		WebDir:  cfg.WebDir,
+		Auth:           authSvc,
+		Repo:           repo,
+		Scanner:        scanner,
+		Store:          store,
+		Streams:        streams,
+		WebDir:         cfg.WebDir,
+		UploadDir:      uploadDir,
+		MaxUploadBytes: int64(cfg.MaxUploadMB) << 20,
 	}
 
-	// Kick off an initial library scan in the background so first run populates.
+	// Kick off an initial library scan in the background so first run populates,
+	// then (optionally) synthesize a sample clip if the library is still empty.
 	go func() {
 		log.Println("starting initial library scan...")
 		n, err := scanner.Scan(context.Background())
 		if err != nil {
 			log.Printf("initial scan error: %v", err)
-			return
+		} else {
+			log.Printf("initial scan complete: %d item(s) indexed", n)
 		}
-		log.Printf("initial scan complete: %d item(s) indexed", n)
+		maybeGenerateSample(cfg, tools, repo, scanner, uploadDir)
 	}()
 
 	httpSrv := &http.Server{
@@ -91,4 +100,33 @@ func main() {
 	if err := httpSrv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("server error: %v", err)
 	}
+}
+
+// maybeGenerateSample synthesizes a demo clip when STREAMHUB_GENERATE_SAMPLE is
+// set and the library is empty — useful on fresh/ephemeral cloud deployments so
+// there's something to stream immediately.
+func maybeGenerateSample(cfg *config.Config, tools ffmpeg.Tools, repo *library.Repository, scanner *library.Scanner, dir string) {
+	if !cfg.GenerateSample || dir == "" {
+		return
+	}
+	if n, err := repo.Count(); err != nil || n > 0 {
+		return
+	}
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		log.Printf("sample: cannot create media dir: %v", err)
+		return
+	}
+	out := filepath.Join(dir, "StreamHub Sample.mp4")
+	log.Println("generating sample clip (library is empty)...")
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	if err := tools.GenerateSample(ctx, out); err != nil {
+		log.Printf("sample: generation failed: %v", err)
+		return
+	}
+	if err := scanner.AddFile(context.Background(), out); err != nil {
+		log.Printf("sample: indexing failed: %v", err)
+		return
+	}
+	log.Println("sample clip ready")
 }

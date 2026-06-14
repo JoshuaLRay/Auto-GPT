@@ -77,6 +77,13 @@ func (r *Repository) List(itemType, parentID string) ([]*models.LibraryItem, err
 	return items, rows.Err()
 }
 
+// Count returns the total number of library items.
+func (r *Repository) Count() (int, error) {
+	var n int
+	err := r.db.QueryRow(`SELECT COUNT(*) FROM library_items`).Scan(&n)
+	return n, err
+}
+
 // Get returns a single item by ID.
 func (r *Repository) Get(id string) (*models.LibraryItem, error) {
 	row := r.db.QueryRow(`SELECT `+itemCols+` FROM library_items WHERE id = ?`, id)

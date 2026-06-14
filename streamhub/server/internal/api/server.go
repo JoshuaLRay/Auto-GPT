@@ -19,6 +19,9 @@ type Server struct {
 	Store   storage.Storage
 	Streams *stream.Manager
 	WebDir  string // built web app to serve at "/"; empty serves the API only
+
+	UploadDir      string // where admin uploads are written; empty disables uploads
+	MaxUploadBytes int64  // reject uploads larger than this
 }
 
 // Handler builds the http.Handler with all routes mounted.
@@ -46,6 +49,7 @@ func (s *Server) Handler() http.Handler {
 	protected.HandleFunc("PUT /api/items/{id}/progress", s.handleSetProgress)
 	protected.HandleFunc("GET /api/items/{id}/hls.m3u8", s.handleStartStream)
 	protected.HandleFunc("POST /api/library/scan", s.handleScan)
+	protected.HandleFunc("POST /api/library/upload", s.handleUpload)
 
 	mux.Handle("/api/", s.Auth.Middleware(protected))
 

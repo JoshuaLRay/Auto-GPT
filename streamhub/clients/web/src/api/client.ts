@@ -56,6 +56,35 @@ export const api = {
 
   scan: (token: string) => request<{ status: string }>('/api/library/scan', { method: 'POST', token }),
 
+  // Upload a video file. Uses XHR (not fetch) so we can report upload progress.
+  upload: (token: string, file: File, onProgress?: (percent: number) => void) =>
+    new Promise<LibraryItem>((resolve, reject) => {
+      const form = new FormData()
+      form.append('file', file)
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', base + '/api/library/upload')
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100))
+      }
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(JSON.parse(xhr.responseText) as LibraryItem)
+          return
+        }
+        let message = xhr.statusText
+        try {
+          const body = JSON.parse(xhr.responseText) as { error?: string }
+          if (body.error) message = body.error
+        } catch {
+          // keep statusText
+        }
+        reject(new Error(message))
+      }
+      xhr.onerror = () => reject(new Error('network error'))
+      xhr.send(form)
+    }),
+
   // HLS entry point. The token is passed as a query param because the <video>/
   // hls.js segment fetches can't set an Authorization header.
   streamUrl: (id: string, token: string) =>

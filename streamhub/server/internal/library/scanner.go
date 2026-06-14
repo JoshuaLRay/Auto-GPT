@@ -2,7 +2,9 @@ package library
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -21,6 +23,10 @@ var videoExts = map[string]bool{
 	".mp4": true, ".mkv": true, ".mov": true, ".avi": true,
 	".m4v": true, ".webm": true, ".ts": true, ".wmv": true,
 }
+
+// IsVideoExt reports whether ext (including the leading dot, any case) is a
+// supported video container.
+func IsVideoExt(ext string) bool { return videoExts[strings.ToLower(ext)] }
 
 // Scanner discovers media on a Storage, probes it, and upserts library items.
 type Scanner struct {
@@ -81,6 +87,19 @@ func (s *Scanner) Scan(ctx context.Context) (added int, err error) {
 		return nil
 	})
 	return added, err
+}
+
+// AddFile indexes a single local media file (e.g. one just uploaded). It is
+// used outside the bulk Walk for immediate indexing.
+func (s *Scanner) AddFile(ctx context.Context, path string) error {
+	info, err := os.Stat(path)
+	if err != nil {
+		return err
+	}
+	if !IsVideoExt(filepath.Ext(path)) {
+		return fmt.Errorf("unsupported file type: %s", filepath.Ext(path))
+	}
+	return s.indexVideo(ctx, storage.FileInfo{Key: path, SizeBytes: info.Size(), ModUnix: info.ModTime().Unix()})
 }
 
 func (s *Scanner) indexVideo(ctx context.Context, fi storage.FileInfo) error {

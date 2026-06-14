@@ -23,9 +23,10 @@ RUN apk add --no-cache ffmpeg ca-certificates
 COPY --from=build /out/streamhub /usr/local/bin/streamhub
 COPY --from=web /web/dist /web
 
+# Note: STREAMHUB_ADDR is intentionally unset so the server honours the $PORT
+# injected by PaaS platforms (Render, Railway, …); it defaults to :8080 locally.
 ENV STREAMHUB_DATA_DIR=/data \
     STREAMHUB_MEDIA_DIRS=/media \
-    STREAMHUB_ADDR=:8080 \
     STREAMHUB_WEB_DIR=/web
 VOLUME ["/data", "/media"]
 EXPOSE 8080

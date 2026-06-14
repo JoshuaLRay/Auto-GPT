@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
@@ -11,10 +11,28 @@ export function Layout({ children }: { children: ReactNode }) {
   const [searchParams] = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('q') ?? '')
   const [scanMsg, setScanMsg] = useState('')
+  const [uploadMsg, setUploadMsg] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   function submitSearch(e: React.FormEvent) {
     e.preventDefault()
     navigate(query ? `/?q=${encodeURIComponent(query)}` : '/')
+  }
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = '' // allow re-selecting the same file later
+    if (!file || !token) return
+    setUploadMsg('Uploading 0%')
+    try {
+      await api.upload(token, file, (pct) => setUploadMsg(`Uploading ${pct}%`))
+      setUploadMsg('Processing…')
+      // Full reload so the freshly indexed item shows up in the library grid.
+      window.location.assign('/')
+    } catch (err) {
+      setUploadMsg(err instanceof Error ? err.message : 'Upload failed')
+      setTimeout(() => setUploadMsg(''), 5000)
+    }
   }
 
   async function triggerScan() {
@@ -45,9 +63,25 @@ export function Layout({ children }: { children: ReactNode }) {
         </form>
         <div className="actions">
           {user?.isAdmin && (
-            <button className="ghost" onClick={triggerScan} title="Rescan the library">
-              {scanMsg || 'Scan'}
-            </button>
+            <>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="video/*"
+                hidden
+                onChange={handleUpload}
+              />
+              <button
+                className="ghost"
+                onClick={() => fileInputRef.current?.click()}
+                title="Upload a video"
+              >
+                {uploadMsg || 'Upload'}
+              </button>
+              <button className="ghost" onClick={triggerScan} title="Rescan the library">
+                {scanMsg || 'Scan'}
+              </button>
+            </>
           )}
           <span className="user">{user?.username}</span>
           <button className="ghost" onClick={logout}>

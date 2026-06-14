@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -28,6 +29,9 @@ type Config struct {
 	FFprobePath string // path to ffprobe binary
 
 	WebDir string // directory of the built web app to serve (empty = API only)
+
+	MaxUploadMB    int  // max accepted upload size in MB
+	GenerateSample bool // on startup, synthesize a sample clip if the library is empty
 }
 
 // TranscodeDir is where per-session HLS output is written.
@@ -39,14 +43,16 @@ func (c *Config) DBPath() string { return filepath.Join(c.DataDir, "streamhub.db
 // Load reads configuration from the environment, applying sensible defaults.
 func Load() *Config {
 	c := &Config{
-		Addr:          env("STREAMHUB_ADDR", ":8080"),
-		DataDir:       env("STREAMHUB_DATA_DIR", "./data"),
-		AdminUser:     env("STREAMHUB_ADMIN_USER", "admin"),
-		AdminPassword: env("STREAMHUB_ADMIN_PASSWORD", ""),
-		TMDBAPIKey:    env("STREAMHUB_TMDB_API_KEY", ""),
-		FFmpegPath:    env("STREAMHUB_FFMPEG", "ffmpeg"),
-		FFprobePath:   env("STREAMHUB_FFPROBE", "ffprobe"),
-		WebDir:        env("STREAMHUB_WEB_DIR", ""),
+		Addr:           env("STREAMHUB_ADDR", defaultAddr()),
+		DataDir:        env("STREAMHUB_DATA_DIR", "./data"),
+		AdminUser:      env("STREAMHUB_ADMIN_USER", "admin"),
+		AdminPassword:  env("STREAMHUB_ADMIN_PASSWORD", ""),
+		TMDBAPIKey:     env("STREAMHUB_TMDB_API_KEY", ""),
+		FFmpegPath:     env("STREAMHUB_FFMPEG", "ffmpeg"),
+		FFprobePath:    env("STREAMHUB_FFPROBE", "ffprobe"),
+		WebDir:         env("STREAMHUB_WEB_DIR", ""),
+		MaxUploadMB:    envInt("STREAMHUB_MAX_UPLOAD_MB", 4096),
+		GenerateSample: env("STREAMHUB_GENERATE_SAMPLE", "") == "1",
 	}
 
 	for _, d := range strings.Split(env("STREAMHUB_MEDIA_DIRS", "./media"), string(os.PathListSeparator)) {
@@ -78,4 +84,22 @@ func env(key, def string) string {
 		return v
 	}
 	return def
+}
+
+func envInt(key string, def int) int {
+	if v, ok := os.LookupEnv(key); ok {
+		if n, err := strconv.Atoi(strings.TrimSpace(v)); err == nil {
+			return n
+		}
+	}
+	return def
+}
+
+// defaultAddr honours the PORT env var that PaaS platforms (Render, Railway,
+// Cloud Run, …) inject, falling back to :8080 for local/Docker use.
+func defaultAddr() string {
+	if p := os.Getenv("PORT"); p != "" {
+		return ":" + p
+	}
+	return ":8080"
 }

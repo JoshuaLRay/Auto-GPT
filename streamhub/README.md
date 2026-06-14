@@ -26,6 +26,13 @@ This serves the API **and** the web UI on one port. Open **http://localhost:8080
 (or **http://&lt;your-LAN-IP&gt;:8080** from a phone/TV on the same Wi-Fi — iOS Safari
 plays the streams natively), log in, hit **Scan**, and play.
 
+### No computer? Deploy to the cloud (free)
+
+You can run StreamHub on the public internet and stream to your phone over HTTPS
+without a local machine. See **[`docs/DEPLOY.md`](docs/DEPLOY.md)** for a
+phone-only, free Render setup. On a fresh deploy it auto-generates a sample clip,
+and you can **Upload** your own videos from the phone.
+
 ## Why this lives here
 
 This was scaffolded on the `claude/streaming-library-multiplatform-xazmzv` branch of the
