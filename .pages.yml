@@ -1,6 +1,6 @@
 # Pages CMS configuration (https://pagescms.org) - GENERATED.
-# Lets Dustin edit + reorder page sections at app.pagescms.org via GitHub.
-# All paths are relative to the repository root.
+# Page sections use a 'block' field so each section shows its real name
+# (Hero, Cards, Two-column Split, ...) and only its relevant fields.
 
 media:
   input: dustin-yelton-site/src/images/uploads
@@ -69,310 +69,430 @@ content:
     type: text
   - name: blocks
     label: Page Sections (drag to reorder)
-    type: object
+    type: block
     list: true
-    fields:
-    - name: type
-      label: Section Type
-      type: select
-      options:
-        values:
-        - hero
-        - intro
-        - cards
-        - gallery
-        - beforeafter
-        - split
-        - testimonial
-        - text
-        - cta
-    - name: hidden
-      label: Hide this section
-      type: boolean
-    - name: background
-      label: Background
-      type: select
-      options:
-        values:
-        - default
-        - sand
-        - navy
-    - name: align
-      label: Alignment (center?)
-      type: select
-      options:
-        values:
-        - left
-        - center
-    - name: tight
-      label: Tight spacing
-      type: boolean
-    - name: eyebrow
-      label: Small label
-      type: string
-    - name: heading
-      label: Heading
-      type: string
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: image
+        label: Background image
+        type: image
+      - name: badges
+        label: Badges
+        type: object
+        list: true
+        fields:
+        - name: text
+          label: Badge
+          type: string
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: intro
+      label: Intro (page heading)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: tight
+        label: Tight spacing
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cards
+      label: Cards (3 columns)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: items
+        label: Cards
+        type: object
+        list: true
+        fields:
+        - name: icon
+          label: Icon (emoji)
+          type: string
+        - name: title
+          label: Title
+          type: string
+        - name: body
+          label: Body
+          type: text
+        - name: linkText
+          label: Link text
+          type: string
+        - name: linkUrl
+          label: Link URL
+          type: string
+    - name: gallery
+      label: Photo Gallery
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: caption
+          label: Caption (shown if no photo)
+          type: string
+    - name: beforeafter
+      label: Before / After
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Before / After photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: tag
+          label: Tag (e.g. Before / After)
+          type: string
+    - name: split
+      label: Two-column Split
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: alignTop
+        label: Align columns to top
+        type: boolean
+      - name: leftVariant
+        label: Left column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: leftH1
+        label: 'Left column: heading is H1?'
+        type: boolean
+      - name: leftEyebrow
+        label: Left column small label
+        type: string
+      - name: leftHeading
+        label: Left column heading
+        type: string
+      - name: leftText
+        label: Left column text
+        type: text
+      - name: leftItems
+        label: Left column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: leftImage
+        label: Left column image
+        type: image
+      - name: leftNote
+        label: Left column small note
+        type: string
+      - name: leftButtonLabel
+        label: Left column button label
+        type: string
+      - name: leftButtonUrl
+        label: Left column button URL
+        type: string
+      - name: leftCalloutHeading
+        label: Left column callout heading
+        type: string
+      - name: leftCalloutText
+        label: Left column callout text
+        type: text
+      - name: leftCalloutButtonLabel
+        label: Left column callout link label
+        type: string
+      - name: leftCalloutButtonUrl
+        label: Left column callout link URL
+        type: string
+      - name: rightVariant
+        label: Right column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: rightH1
+        label: 'Right column: heading is H1?'
+        type: boolean
+      - name: rightEyebrow
+        label: Right column small label
+        type: string
+      - name: rightHeading
+        label: Right column heading
+        type: string
+      - name: rightText
+        label: Right column text
+        type: text
+      - name: rightItems
+        label: Right column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: rightImage
+        label: Right column image
+        type: image
+      - name: rightNote
+        label: Right column small note
+        type: string
+      - name: rightButtonLabel
+        label: Right column button label
+        type: string
+      - name: rightButtonUrl
+        label: Right column button URL
+        type: string
+      - name: rightCalloutHeading
+        label: Right column callout heading
+        type: string
+      - name: rightCalloutText
+        label: Right column callout text
+        type: text
+      - name: rightCalloutButtonLabel
+        label: Right column callout link label
+        type: string
+      - name: rightCalloutButtonUrl
+        label: Right column callout link URL
+        type: string
+    - name: testimonial
+      label: Testimonial
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: quote
+        label: Quote
+        type: text
+      - name: author
+        label: Author
+        type: string
     - name: text
-      label: Text / subtext
-      type: text
-    - name: image
-      label: Section image (hero background)
-      type: image
-    - name: badges
-      label: Badges (hero)
-      type: object
-      list: true
+      label: Text block
       fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: text
-        label: Badge
-        type: string
-    - name: items
-      label: Items (cards / gallery / before-after)
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
+        label: Text
         type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: quote
-      label: Quote (testimonial)
-      type: text
-    - name: author
-      label: Author (testimonial)
-      type: string
-    - name: primaryLabel
-      label: Button label
-      type: string
-    - name: primaryUrl
-      label: Button URL
-      type: string
-    - name: showPhoneButton
-      label: Show 'Call' button
-      type: boolean
-    - name: alignTop
-      label: 'Split: align columns to top'
-      type: boolean
-    - name: leftVariant
-      label: Left column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: leftH1
-      label: 'Left column: heading is H1?'
-      type: boolean
-    - name: leftEyebrow
-      label: Left column small label
-      type: string
-    - name: leftHeading
-      label: Left column heading
-      type: string
-    - name: leftText
-      label: Left column text
-      type: text
-    - name: leftItems
-      label: Left column items
-      type: object
-      list: true
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cta
+      label: Call-to-action band
       fields:
-      - name: icon
-        label: Icon emoji (cards)
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: heading
+        label: Heading
         type: string
-      - name: title
-        label: Title (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: leftImage
-      label: Left column image
-      type: image
-    - name: leftNote
-      label: Left column small note
-      type: string
-    - name: leftButtonLabel
-      label: Left column button label
-      type: string
-    - name: leftButtonUrl
-      label: Left column button URL
-      type: string
-    - name: leftCalloutHeading
-      label: Left column callout heading
-      type: string
-    - name: leftCalloutText
-      label: Left column callout text
-      type: text
-    - name: leftCalloutButtonLabel
-      label: Left column callout link label
-      type: string
-    - name: leftCalloutButtonUrl
-      label: Left column callout link URL
-      type: string
-    - name: rightVariant
-      label: Right column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: rightH1
-      label: 'Right column: heading is H1?'
-      type: boolean
-    - name: rightEyebrow
-      label: Right column small label
-      type: string
-    - name: rightHeading
-      label: Right column heading
-      type: string
-    - name: rightText
-      label: Right column text
-      type: text
-    - name: rightItems
-      label: Right column items
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
-        type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: rightImage
-      label: Right column image
-      type: image
-    - name: rightNote
-      label: Right column small note
-      type: string
-    - name: rightButtonLabel
-      label: Right column button label
-      type: string
-    - name: rightButtonUrl
-      label: Right column button URL
-      type: string
-    - name: rightCalloutHeading
-      label: Right column callout heading
-      type: string
-    - name: rightCalloutText
-      label: Right column callout text
-      type: text
-    - name: rightCalloutButtonLabel
-      label: Right column callout link label
-      type: string
-    - name: rightCalloutButtonUrl
-      label: Right column callout link URL
-      type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
 - name: painting
   label: Painting Page
   type: file
@@ -387,310 +507,430 @@ content:
     type: text
   - name: blocks
     label: Page Sections (drag to reorder)
-    type: object
+    type: block
     list: true
-    fields:
-    - name: type
-      label: Section Type
-      type: select
-      options:
-        values:
-        - hero
-        - intro
-        - cards
-        - gallery
-        - beforeafter
-        - split
-        - testimonial
-        - text
-        - cta
-    - name: hidden
-      label: Hide this section
-      type: boolean
-    - name: background
-      label: Background
-      type: select
-      options:
-        values:
-        - default
-        - sand
-        - navy
-    - name: align
-      label: Alignment (center?)
-      type: select
-      options:
-        values:
-        - left
-        - center
-    - name: tight
-      label: Tight spacing
-      type: boolean
-    - name: eyebrow
-      label: Small label
-      type: string
-    - name: heading
-      label: Heading
-      type: string
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: image
+        label: Background image
+        type: image
+      - name: badges
+        label: Badges
+        type: object
+        list: true
+        fields:
+        - name: text
+          label: Badge
+          type: string
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: intro
+      label: Intro (page heading)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: tight
+        label: Tight spacing
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cards
+      label: Cards (3 columns)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: items
+        label: Cards
+        type: object
+        list: true
+        fields:
+        - name: icon
+          label: Icon (emoji)
+          type: string
+        - name: title
+          label: Title
+          type: string
+        - name: body
+          label: Body
+          type: text
+        - name: linkText
+          label: Link text
+          type: string
+        - name: linkUrl
+          label: Link URL
+          type: string
+    - name: gallery
+      label: Photo Gallery
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: caption
+          label: Caption (shown if no photo)
+          type: string
+    - name: beforeafter
+      label: Before / After
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Before / After photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: tag
+          label: Tag (e.g. Before / After)
+          type: string
+    - name: split
+      label: Two-column Split
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: alignTop
+        label: Align columns to top
+        type: boolean
+      - name: leftVariant
+        label: Left column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: leftH1
+        label: 'Left column: heading is H1?'
+        type: boolean
+      - name: leftEyebrow
+        label: Left column small label
+        type: string
+      - name: leftHeading
+        label: Left column heading
+        type: string
+      - name: leftText
+        label: Left column text
+        type: text
+      - name: leftItems
+        label: Left column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: leftImage
+        label: Left column image
+        type: image
+      - name: leftNote
+        label: Left column small note
+        type: string
+      - name: leftButtonLabel
+        label: Left column button label
+        type: string
+      - name: leftButtonUrl
+        label: Left column button URL
+        type: string
+      - name: leftCalloutHeading
+        label: Left column callout heading
+        type: string
+      - name: leftCalloutText
+        label: Left column callout text
+        type: text
+      - name: leftCalloutButtonLabel
+        label: Left column callout link label
+        type: string
+      - name: leftCalloutButtonUrl
+        label: Left column callout link URL
+        type: string
+      - name: rightVariant
+        label: Right column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: rightH1
+        label: 'Right column: heading is H1?'
+        type: boolean
+      - name: rightEyebrow
+        label: Right column small label
+        type: string
+      - name: rightHeading
+        label: Right column heading
+        type: string
+      - name: rightText
+        label: Right column text
+        type: text
+      - name: rightItems
+        label: Right column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: rightImage
+        label: Right column image
+        type: image
+      - name: rightNote
+        label: Right column small note
+        type: string
+      - name: rightButtonLabel
+        label: Right column button label
+        type: string
+      - name: rightButtonUrl
+        label: Right column button URL
+        type: string
+      - name: rightCalloutHeading
+        label: Right column callout heading
+        type: string
+      - name: rightCalloutText
+        label: Right column callout text
+        type: text
+      - name: rightCalloutButtonLabel
+        label: Right column callout link label
+        type: string
+      - name: rightCalloutButtonUrl
+        label: Right column callout link URL
+        type: string
+    - name: testimonial
+      label: Testimonial
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: quote
+        label: Quote
+        type: text
+      - name: author
+        label: Author
+        type: string
     - name: text
-      label: Text / subtext
-      type: text
-    - name: image
-      label: Section image (hero background)
-      type: image
-    - name: badges
-      label: Badges (hero)
-      type: object
-      list: true
+      label: Text block
       fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: text
-        label: Badge
-        type: string
-    - name: items
-      label: Items (cards / gallery / before-after)
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
+        label: Text
         type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: quote
-      label: Quote (testimonial)
-      type: text
-    - name: author
-      label: Author (testimonial)
-      type: string
-    - name: primaryLabel
-      label: Button label
-      type: string
-    - name: primaryUrl
-      label: Button URL
-      type: string
-    - name: showPhoneButton
-      label: Show 'Call' button
-      type: boolean
-    - name: alignTop
-      label: 'Split: align columns to top'
-      type: boolean
-    - name: leftVariant
-      label: Left column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: leftH1
-      label: 'Left column: heading is H1?'
-      type: boolean
-    - name: leftEyebrow
-      label: Left column small label
-      type: string
-    - name: leftHeading
-      label: Left column heading
-      type: string
-    - name: leftText
-      label: Left column text
-      type: text
-    - name: leftItems
-      label: Left column items
-      type: object
-      list: true
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cta
+      label: Call-to-action band
       fields:
-      - name: icon
-        label: Icon emoji (cards)
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: heading
+        label: Heading
         type: string
-      - name: title
-        label: Title (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: leftImage
-      label: Left column image
-      type: image
-    - name: leftNote
-      label: Left column small note
-      type: string
-    - name: leftButtonLabel
-      label: Left column button label
-      type: string
-    - name: leftButtonUrl
-      label: Left column button URL
-      type: string
-    - name: leftCalloutHeading
-      label: Left column callout heading
-      type: string
-    - name: leftCalloutText
-      label: Left column callout text
-      type: text
-    - name: leftCalloutButtonLabel
-      label: Left column callout link label
-      type: string
-    - name: leftCalloutButtonUrl
-      label: Left column callout link URL
-      type: string
-    - name: rightVariant
-      label: Right column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: rightH1
-      label: 'Right column: heading is H1?'
-      type: boolean
-    - name: rightEyebrow
-      label: Right column small label
-      type: string
-    - name: rightHeading
-      label: Right column heading
-      type: string
-    - name: rightText
-      label: Right column text
-      type: text
-    - name: rightItems
-      label: Right column items
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
-        type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: rightImage
-      label: Right column image
-      type: image
-    - name: rightNote
-      label: Right column small note
-      type: string
-    - name: rightButtonLabel
-      label: Right column button label
-      type: string
-    - name: rightButtonUrl
-      label: Right column button URL
-      type: string
-    - name: rightCalloutHeading
-      label: Right column callout heading
-      type: string
-    - name: rightCalloutText
-      label: Right column callout text
-      type: text
-    - name: rightCalloutButtonLabel
-      label: Right column callout link label
-      type: string
-    - name: rightCalloutButtonUrl
-      label: Right column callout link URL
-      type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
 - name: cleaning
   label: Cleaning Page
   type: file
@@ -705,310 +945,430 @@ content:
     type: text
   - name: blocks
     label: Page Sections (drag to reorder)
-    type: object
+    type: block
     list: true
-    fields:
-    - name: type
-      label: Section Type
-      type: select
-      options:
-        values:
-        - hero
-        - intro
-        - cards
-        - gallery
-        - beforeafter
-        - split
-        - testimonial
-        - text
-        - cta
-    - name: hidden
-      label: Hide this section
-      type: boolean
-    - name: background
-      label: Background
-      type: select
-      options:
-        values:
-        - default
-        - sand
-        - navy
-    - name: align
-      label: Alignment (center?)
-      type: select
-      options:
-        values:
-        - left
-        - center
-    - name: tight
-      label: Tight spacing
-      type: boolean
-    - name: eyebrow
-      label: Small label
-      type: string
-    - name: heading
-      label: Heading
-      type: string
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: image
+        label: Background image
+        type: image
+      - name: badges
+        label: Badges
+        type: object
+        list: true
+        fields:
+        - name: text
+          label: Badge
+          type: string
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: intro
+      label: Intro (page heading)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: tight
+        label: Tight spacing
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cards
+      label: Cards (3 columns)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: items
+        label: Cards
+        type: object
+        list: true
+        fields:
+        - name: icon
+          label: Icon (emoji)
+          type: string
+        - name: title
+          label: Title
+          type: string
+        - name: body
+          label: Body
+          type: text
+        - name: linkText
+          label: Link text
+          type: string
+        - name: linkUrl
+          label: Link URL
+          type: string
+    - name: gallery
+      label: Photo Gallery
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: caption
+          label: Caption (shown if no photo)
+          type: string
+    - name: beforeafter
+      label: Before / After
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Before / After photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: tag
+          label: Tag (e.g. Before / After)
+          type: string
+    - name: split
+      label: Two-column Split
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: alignTop
+        label: Align columns to top
+        type: boolean
+      - name: leftVariant
+        label: Left column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: leftH1
+        label: 'Left column: heading is H1?'
+        type: boolean
+      - name: leftEyebrow
+        label: Left column small label
+        type: string
+      - name: leftHeading
+        label: Left column heading
+        type: string
+      - name: leftText
+        label: Left column text
+        type: text
+      - name: leftItems
+        label: Left column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: leftImage
+        label: Left column image
+        type: image
+      - name: leftNote
+        label: Left column small note
+        type: string
+      - name: leftButtonLabel
+        label: Left column button label
+        type: string
+      - name: leftButtonUrl
+        label: Left column button URL
+        type: string
+      - name: leftCalloutHeading
+        label: Left column callout heading
+        type: string
+      - name: leftCalloutText
+        label: Left column callout text
+        type: text
+      - name: leftCalloutButtonLabel
+        label: Left column callout link label
+        type: string
+      - name: leftCalloutButtonUrl
+        label: Left column callout link URL
+        type: string
+      - name: rightVariant
+        label: Right column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: rightH1
+        label: 'Right column: heading is H1?'
+        type: boolean
+      - name: rightEyebrow
+        label: Right column small label
+        type: string
+      - name: rightHeading
+        label: Right column heading
+        type: string
+      - name: rightText
+        label: Right column text
+        type: text
+      - name: rightItems
+        label: Right column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: rightImage
+        label: Right column image
+        type: image
+      - name: rightNote
+        label: Right column small note
+        type: string
+      - name: rightButtonLabel
+        label: Right column button label
+        type: string
+      - name: rightButtonUrl
+        label: Right column button URL
+        type: string
+      - name: rightCalloutHeading
+        label: Right column callout heading
+        type: string
+      - name: rightCalloutText
+        label: Right column callout text
+        type: text
+      - name: rightCalloutButtonLabel
+        label: Right column callout link label
+        type: string
+      - name: rightCalloutButtonUrl
+        label: Right column callout link URL
+        type: string
+    - name: testimonial
+      label: Testimonial
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: quote
+        label: Quote
+        type: text
+      - name: author
+        label: Author
+        type: string
     - name: text
-      label: Text / subtext
-      type: text
-    - name: image
-      label: Section image (hero background)
-      type: image
-    - name: badges
-      label: Badges (hero)
-      type: object
-      list: true
+      label: Text block
       fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: text
-        label: Badge
-        type: string
-    - name: items
-      label: Items (cards / gallery / before-after)
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
+        label: Text
         type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: quote
-      label: Quote (testimonial)
-      type: text
-    - name: author
-      label: Author (testimonial)
-      type: string
-    - name: primaryLabel
-      label: Button label
-      type: string
-    - name: primaryUrl
-      label: Button URL
-      type: string
-    - name: showPhoneButton
-      label: Show 'Call' button
-      type: boolean
-    - name: alignTop
-      label: 'Split: align columns to top'
-      type: boolean
-    - name: leftVariant
-      label: Left column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: leftH1
-      label: 'Left column: heading is H1?'
-      type: boolean
-    - name: leftEyebrow
-      label: Left column small label
-      type: string
-    - name: leftHeading
-      label: Left column heading
-      type: string
-    - name: leftText
-      label: Left column text
-      type: text
-    - name: leftItems
-      label: Left column items
-      type: object
-      list: true
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cta
+      label: Call-to-action band
       fields:
-      - name: icon
-        label: Icon emoji (cards)
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: heading
+        label: Heading
         type: string
-      - name: title
-        label: Title (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: leftImage
-      label: Left column image
-      type: image
-    - name: leftNote
-      label: Left column small note
-      type: string
-    - name: leftButtonLabel
-      label: Left column button label
-      type: string
-    - name: leftButtonUrl
-      label: Left column button URL
-      type: string
-    - name: leftCalloutHeading
-      label: Left column callout heading
-      type: string
-    - name: leftCalloutText
-      label: Left column callout text
-      type: text
-    - name: leftCalloutButtonLabel
-      label: Left column callout link label
-      type: string
-    - name: leftCalloutButtonUrl
-      label: Left column callout link URL
-      type: string
-    - name: rightVariant
-      label: Right column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: rightH1
-      label: 'Right column: heading is H1?'
-      type: boolean
-    - name: rightEyebrow
-      label: Right column small label
-      type: string
-    - name: rightHeading
-      label: Right column heading
-      type: string
-    - name: rightText
-      label: Right column text
-      type: text
-    - name: rightItems
-      label: Right column items
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
-        type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: rightImage
-      label: Right column image
-      type: image
-    - name: rightNote
-      label: Right column small note
-      type: string
-    - name: rightButtonLabel
-      label: Right column button label
-      type: string
-    - name: rightButtonUrl
-      label: Right column button URL
-      type: string
-    - name: rightCalloutHeading
-      label: Right column callout heading
-      type: string
-    - name: rightCalloutText
-      label: Right column callout text
-      type: text
-    - name: rightCalloutButtonLabel
-      label: Right column callout link label
-      type: string
-    - name: rightCalloutButtonUrl
-      label: Right column callout link URL
-      type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
 - name: about
   label: About Page
   type: file
@@ -1023,310 +1383,430 @@ content:
     type: text
   - name: blocks
     label: Page Sections (drag to reorder)
-    type: object
+    type: block
     list: true
-    fields:
-    - name: type
-      label: Section Type
-      type: select
-      options:
-        values:
-        - hero
-        - intro
-        - cards
-        - gallery
-        - beforeafter
-        - split
-        - testimonial
-        - text
-        - cta
-    - name: hidden
-      label: Hide this section
-      type: boolean
-    - name: background
-      label: Background
-      type: select
-      options:
-        values:
-        - default
-        - sand
-        - navy
-    - name: align
-      label: Alignment (center?)
-      type: select
-      options:
-        values:
-        - left
-        - center
-    - name: tight
-      label: Tight spacing
-      type: boolean
-    - name: eyebrow
-      label: Small label
-      type: string
-    - name: heading
-      label: Heading
-      type: string
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: image
+        label: Background image
+        type: image
+      - name: badges
+        label: Badges
+        type: object
+        list: true
+        fields:
+        - name: text
+          label: Badge
+          type: string
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: intro
+      label: Intro (page heading)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: tight
+        label: Tight spacing
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cards
+      label: Cards (3 columns)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: items
+        label: Cards
+        type: object
+        list: true
+        fields:
+        - name: icon
+          label: Icon (emoji)
+          type: string
+        - name: title
+          label: Title
+          type: string
+        - name: body
+          label: Body
+          type: text
+        - name: linkText
+          label: Link text
+          type: string
+        - name: linkUrl
+          label: Link URL
+          type: string
+    - name: gallery
+      label: Photo Gallery
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: caption
+          label: Caption (shown if no photo)
+          type: string
+    - name: beforeafter
+      label: Before / After
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Before / After photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: tag
+          label: Tag (e.g. Before / After)
+          type: string
+    - name: split
+      label: Two-column Split
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: alignTop
+        label: Align columns to top
+        type: boolean
+      - name: leftVariant
+        label: Left column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: leftH1
+        label: 'Left column: heading is H1?'
+        type: boolean
+      - name: leftEyebrow
+        label: Left column small label
+        type: string
+      - name: leftHeading
+        label: Left column heading
+        type: string
+      - name: leftText
+        label: Left column text
+        type: text
+      - name: leftItems
+        label: Left column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: leftImage
+        label: Left column image
+        type: image
+      - name: leftNote
+        label: Left column small note
+        type: string
+      - name: leftButtonLabel
+        label: Left column button label
+        type: string
+      - name: leftButtonUrl
+        label: Left column button URL
+        type: string
+      - name: leftCalloutHeading
+        label: Left column callout heading
+        type: string
+      - name: leftCalloutText
+        label: Left column callout text
+        type: text
+      - name: leftCalloutButtonLabel
+        label: Left column callout link label
+        type: string
+      - name: leftCalloutButtonUrl
+        label: Left column callout link URL
+        type: string
+      - name: rightVariant
+        label: Right column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: rightH1
+        label: 'Right column: heading is H1?'
+        type: boolean
+      - name: rightEyebrow
+        label: Right column small label
+        type: string
+      - name: rightHeading
+        label: Right column heading
+        type: string
+      - name: rightText
+        label: Right column text
+        type: text
+      - name: rightItems
+        label: Right column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: rightImage
+        label: Right column image
+        type: image
+      - name: rightNote
+        label: Right column small note
+        type: string
+      - name: rightButtonLabel
+        label: Right column button label
+        type: string
+      - name: rightButtonUrl
+        label: Right column button URL
+        type: string
+      - name: rightCalloutHeading
+        label: Right column callout heading
+        type: string
+      - name: rightCalloutText
+        label: Right column callout text
+        type: text
+      - name: rightCalloutButtonLabel
+        label: Right column callout link label
+        type: string
+      - name: rightCalloutButtonUrl
+        label: Right column callout link URL
+        type: string
+    - name: testimonial
+      label: Testimonial
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: quote
+        label: Quote
+        type: text
+      - name: author
+        label: Author
+        type: string
     - name: text
-      label: Text / subtext
-      type: text
-    - name: image
-      label: Section image (hero background)
-      type: image
-    - name: badges
-      label: Badges (hero)
-      type: object
-      list: true
+      label: Text block
       fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: text
-        label: Badge
-        type: string
-    - name: items
-      label: Items (cards / gallery / before-after)
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
+        label: Text
         type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: quote
-      label: Quote (testimonial)
-      type: text
-    - name: author
-      label: Author (testimonial)
-      type: string
-    - name: primaryLabel
-      label: Button label
-      type: string
-    - name: primaryUrl
-      label: Button URL
-      type: string
-    - name: showPhoneButton
-      label: Show 'Call' button
-      type: boolean
-    - name: alignTop
-      label: 'Split: align columns to top'
-      type: boolean
-    - name: leftVariant
-      label: Left column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: leftH1
-      label: 'Left column: heading is H1?'
-      type: boolean
-    - name: leftEyebrow
-      label: Left column small label
-      type: string
-    - name: leftHeading
-      label: Left column heading
-      type: string
-    - name: leftText
-      label: Left column text
-      type: text
-    - name: leftItems
-      label: Left column items
-      type: object
-      list: true
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cta
+      label: Call-to-action band
       fields:
-      - name: icon
-        label: Icon emoji (cards)
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: heading
+        label: Heading
         type: string
-      - name: title
-        label: Title (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: leftImage
-      label: Left column image
-      type: image
-    - name: leftNote
-      label: Left column small note
-      type: string
-    - name: leftButtonLabel
-      label: Left column button label
-      type: string
-    - name: leftButtonUrl
-      label: Left column button URL
-      type: string
-    - name: leftCalloutHeading
-      label: Left column callout heading
-      type: string
-    - name: leftCalloutText
-      label: Left column callout text
-      type: text
-    - name: leftCalloutButtonLabel
-      label: Left column callout link label
-      type: string
-    - name: leftCalloutButtonUrl
-      label: Left column callout link URL
-      type: string
-    - name: rightVariant
-      label: Right column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: rightH1
-      label: 'Right column: heading is H1?'
-      type: boolean
-    - name: rightEyebrow
-      label: Right column small label
-      type: string
-    - name: rightHeading
-      label: Right column heading
-      type: string
-    - name: rightText
-      label: Right column text
-      type: text
-    - name: rightItems
-      label: Right column items
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
-        type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: rightImage
-      label: Right column image
-      type: image
-    - name: rightNote
-      label: Right column small note
-      type: string
-    - name: rightButtonLabel
-      label: Right column button label
-      type: string
-    - name: rightButtonUrl
-      label: Right column button URL
-      type: string
-    - name: rightCalloutHeading
-      label: Right column callout heading
-      type: string
-    - name: rightCalloutText
-      label: Right column callout text
-      type: text
-    - name: rightCalloutButtonLabel
-      label: Right column callout link label
-      type: string
-    - name: rightCalloutButtonUrl
-      label: Right column callout link URL
-      type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
 - name: contact
   label: Contact Page
   type: file
@@ -1341,307 +1821,427 @@ content:
     type: text
   - name: blocks
     label: Page Sections (drag to reorder)
-    type: object
+    type: block
     list: true
-    fields:
-    - name: type
-      label: Section Type
-      type: select
-      options:
-        values:
-        - hero
-        - intro
-        - cards
-        - gallery
-        - beforeafter
-        - split
-        - testimonial
-        - text
-        - cta
-    - name: hidden
-      label: Hide this section
-      type: boolean
-    - name: background
-      label: Background
-      type: select
-      options:
-        values:
-        - default
-        - sand
-        - navy
-    - name: align
-      label: Alignment (center?)
-      type: select
-      options:
-        values:
-        - left
-        - center
-    - name: tight
-      label: Tight spacing
-      type: boolean
-    - name: eyebrow
-      label: Small label
-      type: string
-    - name: heading
-      label: Heading
-      type: string
+    blockKey: type
+    blocks:
+    - name: hero
+      label: Hero
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: image
+        label: Background image
+        type: image
+      - name: badges
+        label: Badges
+        type: object
+        list: true
+        fields:
+        - name: text
+          label: Badge
+          type: string
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: intro
+      label: Intro (page heading)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: tight
+        label: Tight spacing
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Headline
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: primaryLabel
+        label: Button label
+        type: string
+      - name: primaryUrl
+        label: Button URL
+        type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cards
+      label: Cards (3 columns)
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: text
+        label: Subtext
+        type: text
+      - name: items
+        label: Cards
+        type: object
+        list: true
+        fields:
+        - name: icon
+          label: Icon (emoji)
+          type: string
+        - name: title
+          label: Title
+          type: string
+        - name: body
+          label: Body
+          type: text
+        - name: linkText
+          label: Link text
+          type: string
+        - name: linkUrl
+          label: Link URL
+          type: string
+    - name: gallery
+      label: Photo Gallery
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: caption
+          label: Caption (shown if no photo)
+          type: string
+    - name: beforeafter
+      label: Before / After
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
+      - name: items
+        label: Before / After photos
+        type: object
+        list: true
+        fields:
+        - name: image
+          label: Photo
+          type: image
+        - name: tag
+          label: Tag (e.g. Before / After)
+          type: string
+    - name: split
+      label: Two-column Split
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: alignTop
+        label: Align columns to top
+        type: boolean
+      - name: leftVariant
+        label: Left column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: leftH1
+        label: 'Left column: heading is H1?'
+        type: boolean
+      - name: leftEyebrow
+        label: Left column small label
+        type: string
+      - name: leftHeading
+        label: Left column heading
+        type: string
+      - name: leftText
+        label: Left column text
+        type: text
+      - name: leftItems
+        label: Left column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: leftImage
+        label: Left column image
+        type: image
+      - name: leftNote
+        label: Left column small note
+        type: string
+      - name: leftButtonLabel
+        label: Left column button label
+        type: string
+      - name: leftButtonUrl
+        label: Left column button URL
+        type: string
+      - name: leftCalloutHeading
+        label: Left column callout heading
+        type: string
+      - name: leftCalloutText
+        label: Left column callout text
+        type: text
+      - name: leftCalloutButtonLabel
+        label: Left column callout link label
+        type: string
+      - name: leftCalloutButtonUrl
+        label: Left column callout link URL
+        type: string
+      - name: rightVariant
+        label: Right column type
+        type: select
+        options:
+          values:
+          - text
+          - checklist
+          - thumbs
+          - image
+          - card
+          - form
+          - info
+      - name: rightH1
+        label: 'Right column: heading is H1?'
+        type: boolean
+      - name: rightEyebrow
+        label: Right column small label
+        type: string
+      - name: rightHeading
+        label: Right column heading
+        type: string
+      - name: rightText
+        label: Right column text
+        type: text
+      - name: rightItems
+        label: Right column list items
+        type: object
+        list: true
+        fields:
+        - name: strong
+          label: Bold part (checklist)
+          type: string
+        - name: rest
+          label: Rest of line (checklist)
+          type: string
+        - name: text
+          label: Text (checklist / paragraph)
+          type: string
+        - name: name
+          label: Name (simple list, e.g. county)
+          type: string
+        - name: image
+          label: Image (thumbnails)
+          type: image
+        - name: label
+          label: Label (form option / thumbnail)
+          type: string
+      - name: rightImage
+        label: Right column image
+        type: image
+      - name: rightNote
+        label: Right column small note
+        type: string
+      - name: rightButtonLabel
+        label: Right column button label
+        type: string
+      - name: rightButtonUrl
+        label: Right column button URL
+        type: string
+      - name: rightCalloutHeading
+        label: Right column callout heading
+        type: string
+      - name: rightCalloutText
+        label: Right column callout text
+        type: text
+      - name: rightCalloutButtonLabel
+        label: Right column callout link label
+        type: string
+      - name: rightCalloutButtonUrl
+        label: Right column callout link URL
+        type: string
+    - name: testimonial
+      label: Testimonial
+      fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: quote
+        label: Quote
+        type: text
+      - name: author
+        label: Author
+        type: string
     - name: text
-      label: Text / subtext
-      type: text
-    - name: image
-      label: Section image (hero background)
-      type: image
-    - name: badges
-      label: Badges (hero)
-      type: object
-      list: true
+      label: Text block
       fields:
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: background
+        label: Background
+        type: select
+        options:
+          values:
+          - default
+          - sand
+          - navy
+      - name: align
+        label: Center the text?
+        type: select
+        options:
+          values:
+          - left
+          - center
+      - name: eyebrow
+        label: Small label
+        type: string
+      - name: heading
+        label: Heading
+        type: string
       - name: text
-        label: Badge
-        type: string
-    - name: items
-      label: Items (cards / gallery / before-after)
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
+        label: Text
         type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: quote
-      label: Quote (testimonial)
-      type: text
-    - name: author
-      label: Author (testimonial)
-      type: string
-    - name: primaryLabel
-      label: Button label
-      type: string
-    - name: primaryUrl
-      label: Button URL
-      type: string
-    - name: showPhoneButton
-      label: Show 'Call' button
-      type: boolean
-    - name: alignTop
-      label: 'Split: align columns to top'
-      type: boolean
-    - name: leftVariant
-      label: Left column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: leftH1
-      label: 'Left column: heading is H1?'
-      type: boolean
-    - name: leftEyebrow
-      label: Left column small label
-      type: string
-    - name: leftHeading
-      label: Left column heading
-      type: string
-    - name: leftText
-      label: Left column text
-      type: text
-    - name: leftItems
-      label: Left column items
-      type: object
-      list: true
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
+    - name: cta
+      label: Call-to-action band
       fields:
-      - name: icon
-        label: Icon emoji (cards)
+      - name: hidden
+        label: Hide this section
+        type: boolean
+      - name: heading
+        label: Heading
         type: string
-      - name: title
-        label: Title (cards)
+      - name: primaryLabel
+        label: Button label
         type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
+      - name: primaryUrl
+        label: Button URL
         type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: leftImage
-      label: Left column image
-      type: image
-    - name: leftNote
-      label: Left column small note
-      type: string
-    - name: leftButtonLabel
-      label: Left column button label
-      type: string
-    - name: leftButtonUrl
-      label: Left column button URL
-      type: string
-    - name: leftCalloutHeading
-      label: Left column callout heading
-      type: string
-    - name: leftCalloutText
-      label: Left column callout text
-      type: text
-    - name: leftCalloutButtonLabel
-      label: Left column callout link label
-      type: string
-    - name: leftCalloutButtonUrl
-      label: Left column callout link URL
-      type: string
-    - name: rightVariant
-      label: Right column type
-      type: select
-      options:
-        values:
-        - text
-        - checklist
-        - thumbs
-        - image
-        - card
-        - form
-        - info
-    - name: rightH1
-      label: 'Right column: heading is H1?'
-      type: boolean
-    - name: rightEyebrow
-      label: Right column small label
-      type: string
-    - name: rightHeading
-      label: Right column heading
-      type: string
-    - name: rightText
-      label: Right column text
-      type: text
-    - name: rightItems
-      label: Right column items
-      type: object
-      list: true
-      fields:
-      - name: icon
-        label: Icon emoji (cards)
-        type: string
-      - name: title
-        label: Title (cards)
-        type: string
-      - name: body
-        label: Body (cards)
-        type: text
-      - name: linkText
-        label: Link text (cards)
-        type: string
-      - name: linkUrl
-        label: Link URL (cards)
-        type: string
-      - name: image
-        label: Image (gallery / before-after / thumbs)
-        type: image
-      - name: caption
-        label: Caption (gallery)
-        type: string
-      - name: tag
-        label: Tag e.g. Before/After
-        type: string
-      - name: strong
-        label: Bold part (checklist)
-        type: string
-      - name: rest
-        label: Rest of line (checklist)
-        type: string
-      - name: text
-        label: Text (checklist / paragraph)
-        type: string
-      - name: name
-        label: Name (simple list, e.g. county)
-        type: string
-      - name: label
-        label: Label (form option / thumb)
-        type: string
-    - name: rightImage
-      label: Right column image
-      type: image
-    - name: rightNote
-      label: Right column small note
-      type: string
-    - name: rightButtonLabel
-      label: Right column button label
-      type: string
-    - name: rightButtonUrl
-      label: Right column button URL
-      type: string
-    - name: rightCalloutHeading
-      label: Right column callout heading
-      type: string
-    - name: rightCalloutText
-      label: Right column callout text
-      type: text
-    - name: rightCalloutButtonLabel
-      label: Right column callout link label
-      type: string
-    - name: rightCalloutButtonUrl
-      label: Right column callout link URL
-      type: string
+      - name: showPhoneButton
+        label: Show 'Call' button
+        type: boolean
