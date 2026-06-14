@@ -1,29 +1,68 @@
 {
   "seoTitle": "About Dustin Yelton | Painter & Cleaner in Northern Kentucky",
   "seoDescription": "Meet Dustin Yelton — a Northern Kentucky painter and cleaner who treats every home and business like his own. Plus a peek at the music and art coming soon.",
-  "h1": "Hi, I'm Dustin.",
-  "bio": [
-    { "paragraph": "I started this business on a simple idea: that the people you hire to work in your home or business should be reliable, respectful, and genuinely care about the result. I show up when I say I will, treat your space like my own, and don't consider a job done until you're happy with it." },
-    { "paragraph": "Painting and cleaning go hand in hand — both come down to preparation, patience, and an eye for the details most people walk right past. I'm proud to bring that standard to families and small businesses across Northern Kentucky." }
-  ],
-  "portrait": "",
-  "creativeEyebrow": "The Creative Side",
-  "creativeH2": "When I'm not painting houses, I'm making other kinds of art.",
-  "creativeBody1": "Outside of work, I'm a musician and visual artist. I play music with my band [Band Name], and I create visual work in pencil, pastel, and paint.",
-  "creativeBody2": "A full music and gallery section is in the works. For now, here's a small preview — check back soon, or follow along as it grows.",
-  "creativeCalloutTitle": "🎵 Music & 🎨 Art — coming soon",
-  "creativeCalloutBody": "Dedicated music and gallery pages are planned for phase two.",
-  "artThumbs": [
-    { "image": "", "label": "Art 1" },
-    { "image": "", "label": "Art 2" },
-    { "image": "", "label": "Art 3" }
-  ],
-  "valuesEyebrow": "How I Work",
-  "valuesH2": "What you can count on",
-  "valueCards": [
-    { "title": "Show up on time", "body": "I respect your schedule and communicate clearly from the first call to the final walkthrough." },
-    { "title": "Leave it spotless", "body": "Careful prep and cleanup mean you get the result without the mess." },
-    { "title": "Stand behind the work", "body": "If something isn't right, I make it right. Your satisfaction is the whole point." }
-  ],
-  "ctaHeading": "Let's talk about your project."
+  "blocks": [
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "default",
+      "leftVariant": "text",
+      "leftH1": true,
+      "leftEyebrow": "About",
+      "leftHeading": "Hi, I'm Dustin.",
+      "leftText": "I started this business on a simple idea: that the people you hire to work in your home or business should be reliable, respectful, and genuinely care about the result. I show up when I say I will, treat your space like my own, and don't consider a job done until you're happy with it.",
+      "leftItems": [
+        { "text": "Painting and cleaning go hand in hand — both come down to preparation, patience, and an eye for the details most people walk right past. I'm proud to bring that standard to families and small businesses across Northern Kentucky." }
+      ],
+      "leftButtonLabel": "Work With Me",
+      "leftButtonUrl": "/contact/",
+      "rightVariant": "image",
+      "rightImage": "",
+      "rightHeading": "Photo of Dustin"
+    },
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "sand",
+      "leftVariant": "text",
+      "leftEyebrow": "The Creative Side",
+      "leftHeading": "When I'm not painting houses, I'm making other kinds of art.",
+      "leftText": "Outside of work, I'm a musician and visual artist. I play music with my band [Band Name], and I create visual work in pencil, pastel, and paint.",
+      "leftItems": [
+        { "text": "A full music and gallery section is in the works. For now, here's a small preview — check back soon, or follow along as it grows." }
+      ],
+      "leftCalloutHeading": "🎵 Music & 🎨 Art — coming soon",
+      "leftCalloutText": "Dedicated music and gallery pages are planned for phase two. Want a heads-up when they launch?",
+      "leftCalloutButtonLabel": "Drop me a line.",
+      "leftCalloutButtonUrl": "/contact/",
+      "rightVariant": "thumbs",
+      "rightEyebrow": "A Few Pieces",
+      "rightItems": [
+        { "label": "Art 1" },
+        { "label": "Art 2" },
+        { "label": "Art 3" }
+      ]
+    },
+    {
+      "type": "cards",
+      "hidden": false,
+      "background": "default",
+      "align": "center",
+      "eyebrow": "How I Work",
+      "heading": "What you can count on",
+      "items": [
+        { "title": "Show up on time", "body": "I respect your schedule and communicate clearly from the first call to the final walkthrough." },
+        { "title": "Leave it spotless", "body": "Careful prep and cleanup mean you get the result without the mess." },
+        { "title": "Stand behind the work", "body": "If something isn't right, I make it right. Your satisfaction is the whole point." }
+      ]
+    },
+    {
+      "type": "cta",
+      "hidden": false,
+      "heading": "Let's talk about your project.",
+      "primaryLabel": "Get a Free Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
+    }
+  ]
 }

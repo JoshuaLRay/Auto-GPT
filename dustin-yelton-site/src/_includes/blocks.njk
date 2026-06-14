@@ -1,11 +1,75 @@
 {# Modular section renderer.
    A page's `blocks` array is a list of section objects, each with a `type`.
    Dustin reorders / adds / removes / hides these in the CMS; this macro turns
-   them into the same markup the site has always used. #}
+   them into the same markup the site has always used.
 
+   Two-column sections use type "split" with a left/right column; each column
+   has a `variant` that decides how it renders (renderColumn macro below). #}
+
+{# ---- Column renderer (used by the split block) ---- #}
+{% macro renderColumn(c, site) %}
+{% if c.variant == "card" %}
+  <div class="form-card">
+    {% if c.heading %}<h3 class="mt-0">{{ c.heading }}</h3>{% endif %}
+    {% if c.text %}<p style="color:var(--muted);">{{ c.text }}</p>{% endif %}
+    {% if c.buttonLabel %}<a class="btn" href="{{ c.buttonUrl }}">{{ c.buttonLabel }}</a>{% endif %}
+  </div>
+{% elif c.variant == "form" %}
+  <div class="form-card">
+    <form id="estimate-form" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+      <div class="field"><label for="name">Name</label><input type="text" id="name" name="name" required /></div>
+      <div class="field"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" required /></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" /></div>
+      <div class="field"><label for="service">Service interested in</label>
+        <select id="service" name="service">{% for it in c.items %}<option>{{ it.label }}</option>{% endfor %}</select>
+      </div>
+      <div class="field"><label for="details">Project details</label><textarea id="details" name="details" placeholder="What are you looking to get done? Rough size, timeline, anything helpful."></textarea></div>
+      <div class="btn-row"><button type="submit" class="btn">Send Request</button></div>
+      <p id="form-status" class="form-note" style="display:none; margin-top:14px;"></p>
+    </form>
+  </div>
+{% elif c.variant == "info" %}
+  {% if c.eyebrow %}<p class="eyebrow">{{ c.eyebrow }}</p>{% endif %}
+  {% if c.heading %}<h2>{{ c.heading }}</h2>{% endif %}
+  <ul class="info-list">
+    <li><strong>Phone</strong><a href="tel:{{ site.phoneHref }}">{{ site.phoneDisplay }}</a></li>
+    <li><strong>Email</strong><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+    <li><strong>Hours</strong>{{ site.hoursText }}</li>
+    <li><strong>Service Area</strong>{{ site.serviceAreaShort }}</li>
+  </ul>
+  <div class="map-embed" style="margin-top:8px;">Service-area map<br/><span class="form-note">Embed a Google Map of the service area here.</span></div>
+{% elif c.variant == "image" %}
+  {% if c.image %}<div class="about-portrait" style="background-image:url('{{ c.image }}');background-size:cover;background-position:center;border-style:solid;"></div>
+  {% else %}<div class="about-portrait">{{ c.heading or "Photo" }}</div>{% endif %}
+{% else %}
+  {# text / checklist / thumbs #}
+  {% if c.eyebrow %}<p class="eyebrow">{{ c.eyebrow }}</p>{% endif %}
+  {% if c.heading %}{% if c.h1 %}<h1>{{ c.heading }}</h1>{% else %}<h2>{{ c.heading }}</h2>{% endif %}{% endif %}
+  {% if c.text %}<p>{{ c.text }}</p>{% endif %}
+  {% if c.variant == "checklist" %}
+    <ul class="checks">{% for it in c.items %}<li>{% if it.strong %}<strong>{{ it.strong }}</strong> {% endif %}{{ it.rest }}{{ it.text }}{{ it.name }}</li>{% endfor %}</ul>
+  {% elif c.variant == "thumbs" %}
+    <div class="art-thumbs">{% for it in c.items %}{% if it.image %}<div class="thumb" style="background-image:url('{{ it.image }}');background-size:cover;background-position:center;border-style:solid;"></div>{% else %}<div class="thumb">{{ it.label }}</div>{% endif %}{% endfor %}</div>
+  {% elif c.variant == "text" %}
+    {% for it in c.items %}<p>{{ it.text }}</p>{% endfor %}
+  {% endif %}
+  {% if c.note %}<p class="form-note">{{ c.note }}</p>{% endif %}
+  {% if c.buttonLabel %}<div class="btn-row" style="margin-top:8px;"><a class="btn" href="{{ c.buttonUrl }}">{{ c.buttonLabel }}</a></div>{% endif %}
+{% endif %}
+{% if c.calloutHeading or c.calloutText %}
+  <div class="soon-card">
+    {% if c.calloutHeading %}<h3 class="mt-0">{{ c.calloutHeading }}</h3>{% endif %}
+    {% if c.calloutText %}<p class="mb-0">{{ c.calloutText }}{% if c.calloutButtonLabel %} <a href="{{ c.calloutButtonUrl }}">{{ c.calloutButtonLabel }}</a>{% endif %}</p>{% endif %}
+  </div>
+{% endif %}
+{% endmacro %}
+
+
+{# ---- Page renderer ---- #}
 {% macro renderBlocks(blocks, site) %}
 {% for b in blocks %}
 {% if not b.hidden %}
+{% set bg = (" section--sand" if b.background == "sand" else (" section--navy" if b.background == "navy" else "")) %}
 
 {# ---------- HERO ---------- #}
 {% if b.type == "hero" %}
@@ -14,7 +78,7 @@
     {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
     <h1>{{ b.heading }}</h1>
     {% if b.text %}<p class="lead">{{ b.text }}</p>{% endif %}
-    {% if b.badges %}<div class="hero-badges">{% for bg in b.badges %}<span class="badge">{{ bg.text }}</span>{% endfor %}</div>{% endif %}
+    {% if b.badges %}<div class="hero-badges">{% for bg2 in b.badges %}<span class="badge">{{ bg2.text }}</span>{% endfor %}</div>{% endif %}
     <div class="btn-row">
       {% if b.primaryLabel %}<a class="btn" href="{{ b.primaryUrl }}">{{ b.primaryLabel }}</a>{% endif %}
       {% if b.showPhoneButton %}<a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>{% endif %}
@@ -22,9 +86,23 @@
   </div>
 </section>
 
+{# ---------- INTRO (h1 + lead, optional buttons) ---------- #}
+{% elif b.type == "intro" %}
+<section class="section{{ bg }}{% if b.tight %} section--tight{% endif %}">
+  <div class="wrap{% if b.align == 'center' %} center{% endif %}">
+    {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+    <h1>{{ b.heading }}</h1>
+    {% if b.text %}<p class="lead">{{ b.text }}</p>{% endif %}
+    {% if b.primaryLabel %}<div class="btn-row" style="margin-top:18px;">
+      <a class="btn" href="{{ b.primaryUrl }}">{{ b.primaryLabel }}</a>
+      {% if b.showPhoneButton %}<a class="btn btn--dark" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>{% endif %}
+    </div>{% endif %}
+  </div>
+</section>
+
 {# ---------- CARDS (services / values / why) ---------- #}
 {% elif b.type == "cards" %}
-<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+<section class="section{{ bg }}">
   <div class="wrap{% if b.align == 'center' %} center{% endif %}">
     {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
     {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
@@ -46,7 +124,7 @@
 
 {# ---------- GALLERY (photo strip) ---------- #}
 {% elif b.type == "gallery" %}
-<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+<section class="section{{ bg }}">
   <div class="wrap">
     <div class="center">
       {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
@@ -58,6 +136,34 @@
         {% else %}<div class="shot">{{ it.caption }}</div>{% endif %}
       {% endfor %}
     </div>
+  </div>
+</section>
+
+{# ---------- BEFORE / AFTER ---------- #}
+{% elif b.type == "beforeafter" %}
+<section class="section{{ bg }}">
+  <div class="wrap">
+    <div class="center">
+      {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
+      {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}
+    </div>
+    <div class="ba-row" style="margin-top:26px;">
+      {% for it in b.items %}
+        {% if it.image %}<div class="ba" style="background-image:url('{{ it.image }}');background-size:cover;background-position:center;border-style:solid;"><span class="tag">{{ it.tag }}</span></div>
+        {% else %}<div class="ba"><span class="tag">{{ it.tag }}</span> Project photo</div>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- SPLIT (two columns) ---------- #}
+{% elif b.type == "split" %}
+{% set leftCol = { variant: b.leftVariant, h1: b.leftH1, eyebrow: b.leftEyebrow, heading: b.leftHeading, text: b.leftText, items: b.leftItems, image: b.leftImage, note: b.leftNote, buttonLabel: b.leftButtonLabel, buttonUrl: b.leftButtonUrl, calloutHeading: b.leftCalloutHeading, calloutText: b.leftCalloutText, calloutButtonLabel: b.leftCalloutButtonLabel, calloutButtonUrl: b.leftCalloutButtonUrl } %}
+{% set rightCol = { variant: b.rightVariant, h1: b.rightH1, eyebrow: b.rightEyebrow, heading: b.rightHeading, text: b.rightText, items: b.rightItems, image: b.rightImage, note: b.rightNote, buttonLabel: b.rightButtonLabel, buttonUrl: b.rightButtonUrl, calloutHeading: b.rightCalloutHeading, calloutText: b.rightCalloutText, calloutButtonLabel: b.rightCalloutButtonLabel, calloutButtonUrl: b.rightCalloutButtonUrl } %}
+<section class="section{{ bg }}">
+  <div class="wrap split"{% if b.alignTop %} style="align-items:start;"{% endif %}>
+    <div>{{ renderColumn(leftCol, site) }}</div>
+    <div>{{ renderColumn(rightCol, site) }}</div>
   </div>
 </section>
 
@@ -73,9 +179,9 @@
   </div>
 </section>
 
-{# ---------- TEXT (simple heading + paragraph) ---------- #}
+{# ---------- TEXT ---------- #}
 {% elif b.type == "text" %}
-<section class="section{% if b.background == 'sand' %} section--sand{% elif b.background == 'navy' %} section--navy{% endif %}">
+<section class="section{{ bg }}">
   <div class="wrap{% if b.align == 'center' %} center{% endif %}">
     {% if b.eyebrow %}<p class="eyebrow">{{ b.eyebrow }}</p>{% endif %}
     {% if b.heading %}<h2>{{ b.heading }}</h2>{% endif %}

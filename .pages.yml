@@ -1,241 +1,1647 @@
-# Pages CMS configuration (https://pagescms.org)
-#
-# This lets Dustin edit the website at app.pagescms.org by signing in with
-# GitHub — no OAuth app or auth server to deploy. It edits the same data files
-# the site is built from (dustin-yelton-site/src/_data/*.json). All paths are
-# relative to the repository root.
+# Pages CMS configuration (https://pagescms.org) - GENERATED.
+# Lets Dustin edit + reorder page sections at app.pagescms.org via GitHub.
+# All paths are relative to the repository root.
 
 media:
   input: dustin-yelton-site/src/images/uploads
   output: /images/uploads
-  extensions: [jpg, jpeg, png, webp, gif, svg]
-
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  - gif
+  - svg
 content:
-  - name: settings
-    label: Site Settings
-    type: file
-    path: dustin-yelton-site/src/_data/site.json
-    format: json
+- name: settings
+  label: Site Settings
+  type: file
+  path: dustin-yelton-site/src/_data/site.json
+  format: json
+  fields:
+  - name: businessName
+    label: Business Name (top line)
+    type: string
+  - name: businessNameSub
+    label: Subtitle (under name)
+    type: string
+  - name: businessNameFull
+    label: Full Business Name (footer)
+    type: string
+  - name: tagline
+    label: Tagline
+    type: string
+  - name: phoneDisplay
+    label: Phone (as shown)
+    type: string
+  - name: phoneHref
+    label: Phone (dial format, e.g. +18595551234)
+    type: string
+  - name: email
+    label: Email
+    type: string
+  - name: hoursText
+    label: Business Hours
+    type: string
+  - name: serviceAreaShort
+    label: Service Area (footer line)
+    type: string
+  - name: footerBlurb
+    label: Footer Description
+    type: text
+  - name: footerBadgeLine
+    label: Footer Badge Line
+    type: string
+  - name: footerCreativeNote
+    label: Footer Note (right)
+    type: string
+- name: home
+  label: Home Page
+  type: file
+  path: dustin-yelton-site/src/_data/home.json
+  format: json
+  fields:
+  - name: seoTitle
+    label: SEO Title
+    type: string
+  - name: seoDescription
+    label: SEO Description
+    type: text
+  - name: blocks
+    label: Page Sections (drag to reorder)
+    type: object
+    list: true
     fields:
-      - { name: businessName, label: "Business Name (top line)", type: string }
-      - { name: businessNameSub, label: "Subtitle (under name)", type: string }
-      - { name: businessNameFull, label: "Full Business Name (footer)", type: string }
-      - { name: tagline, label: "Tagline", type: string }
-      - { name: phoneDisplay, label: "Phone (as shown)", type: string }
-      - { name: phoneHref, label: "Phone (dial format, e.g. +18595551234)", type: string }
-      - { name: email, label: "Email", type: string }
-      - { name: hoursText, label: "Business Hours", type: string }
-      - { name: serviceAreaShort, label: "Service Area (footer line)", type: string }
-      - { name: footerBlurb, label: "Footer Description", type: text }
-      - { name: footerBadgeLine, label: "Footer Badge Line", type: string }
-      - { name: footerCreativeNote, label: "Footer Note (right)", type: string }
-
-  - name: home
-    label: Home Page
-    type: file
-    path: dustin-yelton-site/src/_data/home.json
-    format: json
+    - name: type
+      label: Section Type
+      type: select
+      options:
+        values:
+        - hero
+        - intro
+        - cards
+        - gallery
+        - beforeafter
+        - split
+        - testimonial
+        - text
+        - cta
+    - name: hidden
+      label: Hide this section
+      type: boolean
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - default
+        - sand
+        - navy
+    - name: align
+      label: Alignment (center?)
+      type: select
+      options:
+        values:
+        - left
+        - center
+    - name: tight
+      label: Tight spacing
+      type: boolean
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: heading
+      label: Heading
+      type: string
+    - name: text
+      label: Text / subtext
+      type: text
+    - name: image
+      label: Section image (hero background)
+      type: image
+    - name: badges
+      label: Badges (hero)
+      type: object
+      list: true
+      fields:
+      - name: text
+        label: Badge
+        type: string
+    - name: items
+      label: Items (cards / gallery / before-after)
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: quote
+      label: Quote (testimonial)
+      type: text
+    - name: author
+      label: Author (testimonial)
+      type: string
+    - name: primaryLabel
+      label: Button label
+      type: string
+    - name: primaryUrl
+      label: Button URL
+      type: string
+    - name: showPhoneButton
+      label: Show 'Call' button
+      type: boolean
+    - name: alignTop
+      label: 'Split: align columns to top'
+      type: boolean
+    - name: leftVariant
+      label: Left column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: leftH1
+      label: 'Left column: heading is H1?'
+      type: boolean
+    - name: leftEyebrow
+      label: Left column small label
+      type: string
+    - name: leftHeading
+      label: Left column heading
+      type: string
+    - name: leftText
+      label: Left column text
+      type: text
+    - name: leftItems
+      label: Left column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: leftImage
+      label: Left column image
+      type: image
+    - name: leftNote
+      label: Left column small note
+      type: string
+    - name: leftButtonLabel
+      label: Left column button label
+      type: string
+    - name: leftButtonUrl
+      label: Left column button URL
+      type: string
+    - name: leftCalloutHeading
+      label: Left column callout heading
+      type: string
+    - name: leftCalloutText
+      label: Left column callout text
+      type: text
+    - name: leftCalloutButtonLabel
+      label: Left column callout link label
+      type: string
+    - name: leftCalloutButtonUrl
+      label: Left column callout link URL
+      type: string
+    - name: rightVariant
+      label: Right column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: rightH1
+      label: 'Right column: heading is H1?'
+      type: boolean
+    - name: rightEyebrow
+      label: Right column small label
+      type: string
+    - name: rightHeading
+      label: Right column heading
+      type: string
+    - name: rightText
+      label: Right column text
+      type: text
+    - name: rightItems
+      label: Right column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: rightImage
+      label: Right column image
+      type: image
+    - name: rightNote
+      label: Right column small note
+      type: string
+    - name: rightButtonLabel
+      label: Right column button label
+      type: string
+    - name: rightButtonUrl
+      label: Right column button URL
+      type: string
+    - name: rightCalloutHeading
+      label: Right column callout heading
+      type: string
+    - name: rightCalloutText
+      label: Right column callout text
+      type: text
+    - name: rightCalloutButtonLabel
+      label: Right column callout link label
+      type: string
+    - name: rightCalloutButtonUrl
+      label: Right column callout link URL
+      type: string
+- name: painting
+  label: Painting Page
+  type: file
+  path: dustin-yelton-site/src/_data/painting.json
+  format: json
+  fields:
+  - name: seoTitle
+    label: SEO Title
+    type: string
+  - name: seoDescription
+    label: SEO Description
+    type: text
+  - name: blocks
+    label: Page Sections (drag to reorder)
+    type: object
+    list: true
     fields:
-      - { name: seoTitle, label: "SEO Title", type: string }
-      - { name: seoDescription, label: "SEO Description", type: text }
-      # Page Sections: drag to reorder, add/remove, or hide. Each section's
-      # "Section Type" controls which fields below are actually used.
-      - name: blocks
-        label: "Page Sections (drag to reorder)"
-        type: object
-        list: true
-        fields:
-          - name: type
-            label: "Section Type"
-            type: select
-            options:
-              values:
-                - hero
-                - cards
-                - gallery
-                - testimonial
-                - text
-                - cta
-          - { name: hidden, label: "Hide this section", type: boolean }
-          - name: background
-            label: "Background (cards / gallery / text)"
-            type: select
-            options:
-              values: [default, sand, navy]
-          - name: align
-            label: "Alignment (cards / text)"
-            type: select
-            options:
-              values: [left, center]
-          - { name: eyebrow, label: "Small label above heading", type: string }
-          - { name: heading, label: "Heading", type: string }
-          - { name: text, label: "Text / subtext", type: text }
-          - { name: image, label: "Section image (hero background)", type: image }
-          - name: badges
-            label: "Badges (hero)"
-            type: object
-            list: true
-            fields:
-              - { name: text, label: "Badge", type: string }
-          - name: items
-            label: "Items — cards (icon/title/body/link) or gallery (photo/caption)"
-            type: object
-            list: true
-            fields:
-              - { name: icon, label: "Icon (emoji)", type: string }
-              - { name: title, label: "Title", type: string }
-              - { name: body, label: "Body", type: text }
-              - { name: linkText, label: "Link text", type: string }
-              - { name: linkUrl, label: "Link URL", type: string }
-              - { name: image, label: "Photo (gallery)", type: image }
-              - { name: caption, label: "Caption (gallery, if no photo)", type: string }
-          - { name: quote, label: "Quote (testimonial)", type: text }
-          - { name: author, label: "Author (testimonial)", type: string }
-          - { name: primaryLabel, label: "Button label (hero / text / cta)", type: string }
-          - { name: primaryUrl, label: "Button URL", type: string }
-          - { name: showPhoneButton, label: "Show a 'Call' button", type: boolean }
-
-  - name: painting
-    label: Painting Page
-    type: file
-    path: dustin-yelton-site/src/_data/painting.json
-    format: json
+    - name: type
+      label: Section Type
+      type: select
+      options:
+        values:
+        - hero
+        - intro
+        - cards
+        - gallery
+        - beforeafter
+        - split
+        - testimonial
+        - text
+        - cta
+    - name: hidden
+      label: Hide this section
+      type: boolean
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - default
+        - sand
+        - navy
+    - name: align
+      label: Alignment (center?)
+      type: select
+      options:
+        values:
+        - left
+        - center
+    - name: tight
+      label: Tight spacing
+      type: boolean
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: heading
+      label: Heading
+      type: string
+    - name: text
+      label: Text / subtext
+      type: text
+    - name: image
+      label: Section image (hero background)
+      type: image
+    - name: badges
+      label: Badges (hero)
+      type: object
+      list: true
+      fields:
+      - name: text
+        label: Badge
+        type: string
+    - name: items
+      label: Items (cards / gallery / before-after)
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: quote
+      label: Quote (testimonial)
+      type: text
+    - name: author
+      label: Author (testimonial)
+      type: string
+    - name: primaryLabel
+      label: Button label
+      type: string
+    - name: primaryUrl
+      label: Button URL
+      type: string
+    - name: showPhoneButton
+      label: Show 'Call' button
+      type: boolean
+    - name: alignTop
+      label: 'Split: align columns to top'
+      type: boolean
+    - name: leftVariant
+      label: Left column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: leftH1
+      label: 'Left column: heading is H1?'
+      type: boolean
+    - name: leftEyebrow
+      label: Left column small label
+      type: string
+    - name: leftHeading
+      label: Left column heading
+      type: string
+    - name: leftText
+      label: Left column text
+      type: text
+    - name: leftItems
+      label: Left column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: leftImage
+      label: Left column image
+      type: image
+    - name: leftNote
+      label: Left column small note
+      type: string
+    - name: leftButtonLabel
+      label: Left column button label
+      type: string
+    - name: leftButtonUrl
+      label: Left column button URL
+      type: string
+    - name: leftCalloutHeading
+      label: Left column callout heading
+      type: string
+    - name: leftCalloutText
+      label: Left column callout text
+      type: text
+    - name: leftCalloutButtonLabel
+      label: Left column callout link label
+      type: string
+    - name: leftCalloutButtonUrl
+      label: Left column callout link URL
+      type: string
+    - name: rightVariant
+      label: Right column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: rightH1
+      label: 'Right column: heading is H1?'
+      type: boolean
+    - name: rightEyebrow
+      label: Right column small label
+      type: string
+    - name: rightHeading
+      label: Right column heading
+      type: string
+    - name: rightText
+      label: Right column text
+      type: text
+    - name: rightItems
+      label: Right column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: rightImage
+      label: Right column image
+      type: image
+    - name: rightNote
+      label: Right column small note
+      type: string
+    - name: rightButtonLabel
+      label: Right column button label
+      type: string
+    - name: rightButtonUrl
+      label: Right column button URL
+      type: string
+    - name: rightCalloutHeading
+      label: Right column callout heading
+      type: string
+    - name: rightCalloutText
+      label: Right column callout text
+      type: text
+    - name: rightCalloutButtonLabel
+      label: Right column callout link label
+      type: string
+    - name: rightCalloutButtonUrl
+      label: Right column callout link URL
+      type: string
+- name: cleaning
+  label: Cleaning Page
+  type: file
+  path: dustin-yelton-site/src/_data/cleaning.json
+  format: json
+  fields:
+  - name: seoTitle
+    label: SEO Title
+    type: string
+  - name: seoDescription
+    label: SEO Description
+    type: text
+  - name: blocks
+    label: Page Sections (drag to reorder)
+    type: object
+    list: true
     fields:
-      - { name: seoTitle, label: "SEO Title", type: string }
-      - { name: seoDescription, label: "SEO Description", type: text }
-      - { name: eyebrow, label: "Small label", type: string }
-      - { name: h1, label: "Headline", type: string }
-      - { name: lead, label: "Intro paragraph", type: text }
-      - name: whatIPaint
-        label: "What I Paint (checklist)"
-        type: object
-        list: true
-        fields:
-          - { name: strong, label: "Bold part", type: string }
-          - { name: rest, label: "Rest", type: string }
-      - name: howItGoes
-        label: "How a Job Goes (checklist)"
-        type: object
-        list: true
-        fields:
-          - { name: strong, label: "Bold part", type: string }
-          - { name: rest, label: "Rest", type: string }
-      - name: beforeAfter
-        label: "Before / After Photos"
-        type: object
-        list: true
-        fields:
-          - { name: image, label: "Photo", type: image }
-          - { name: tag, label: "Tag (Before / After)", type: string }
-      - { name: serviceAreaIntro, label: "Service-area intro", type: text }
-      - name: serviceAreas
-        label: "Service Areas"
-        type: object
-        list: true
-        fields:
-          - { name: name, label: "Area", type: string }
-      - { name: calloutH3, label: "Licensing callout — title", type: string }
-      - { name: calloutBody, label: "Licensing callout — text", type: text }
-      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
-
-  - name: cleaning
-    label: Cleaning Page
-    type: file
-    path: dustin-yelton-site/src/_data/cleaning.json
-    format: json
+    - name: type
+      label: Section Type
+      type: select
+      options:
+        values:
+        - hero
+        - intro
+        - cards
+        - gallery
+        - beforeafter
+        - split
+        - testimonial
+        - text
+        - cta
+    - name: hidden
+      label: Hide this section
+      type: boolean
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - default
+        - sand
+        - navy
+    - name: align
+      label: Alignment (center?)
+      type: select
+      options:
+        values:
+        - left
+        - center
+    - name: tight
+      label: Tight spacing
+      type: boolean
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: heading
+      label: Heading
+      type: string
+    - name: text
+      label: Text / subtext
+      type: text
+    - name: image
+      label: Section image (hero background)
+      type: image
+    - name: badges
+      label: Badges (hero)
+      type: object
+      list: true
+      fields:
+      - name: text
+        label: Badge
+        type: string
+    - name: items
+      label: Items (cards / gallery / before-after)
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: quote
+      label: Quote (testimonial)
+      type: text
+    - name: author
+      label: Author (testimonial)
+      type: string
+    - name: primaryLabel
+      label: Button label
+      type: string
+    - name: primaryUrl
+      label: Button URL
+      type: string
+    - name: showPhoneButton
+      label: Show 'Call' button
+      type: boolean
+    - name: alignTop
+      label: 'Split: align columns to top'
+      type: boolean
+    - name: leftVariant
+      label: Left column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: leftH1
+      label: 'Left column: heading is H1?'
+      type: boolean
+    - name: leftEyebrow
+      label: Left column small label
+      type: string
+    - name: leftHeading
+      label: Left column heading
+      type: string
+    - name: leftText
+      label: Left column text
+      type: text
+    - name: leftItems
+      label: Left column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: leftImage
+      label: Left column image
+      type: image
+    - name: leftNote
+      label: Left column small note
+      type: string
+    - name: leftButtonLabel
+      label: Left column button label
+      type: string
+    - name: leftButtonUrl
+      label: Left column button URL
+      type: string
+    - name: leftCalloutHeading
+      label: Left column callout heading
+      type: string
+    - name: leftCalloutText
+      label: Left column callout text
+      type: text
+    - name: leftCalloutButtonLabel
+      label: Left column callout link label
+      type: string
+    - name: leftCalloutButtonUrl
+      label: Left column callout link URL
+      type: string
+    - name: rightVariant
+      label: Right column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: rightH1
+      label: 'Right column: heading is H1?'
+      type: boolean
+    - name: rightEyebrow
+      label: Right column small label
+      type: string
+    - name: rightHeading
+      label: Right column heading
+      type: string
+    - name: rightText
+      label: Right column text
+      type: text
+    - name: rightItems
+      label: Right column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: rightImage
+      label: Right column image
+      type: image
+    - name: rightNote
+      label: Right column small note
+      type: string
+    - name: rightButtonLabel
+      label: Right column button label
+      type: string
+    - name: rightButtonUrl
+      label: Right column button URL
+      type: string
+    - name: rightCalloutHeading
+      label: Right column callout heading
+      type: string
+    - name: rightCalloutText
+      label: Right column callout text
+      type: text
+    - name: rightCalloutButtonLabel
+      label: Right column callout link label
+      type: string
+    - name: rightCalloutButtonUrl
+      label: Right column callout link URL
+      type: string
+- name: about
+  label: About Page
+  type: file
+  path: dustin-yelton-site/src/_data/about.json
+  format: json
+  fields:
+  - name: seoTitle
+    label: SEO Title
+    type: string
+  - name: seoDescription
+    label: SEO Description
+    type: text
+  - name: blocks
+    label: Page Sections (drag to reorder)
+    type: object
+    list: true
     fields:
-      - { name: seoTitle, label: "SEO Title", type: string }
-      - { name: seoDescription, label: "SEO Description", type: text }
-      - { name: eyebrow, label: "Small label", type: string }
-      - { name: h1, label: "Headline", type: string }
-      - { name: lead, label: "Intro paragraph", type: text }
-      - name: residential
-        label: "Residential Cleaning (list)"
-        type: object
-        list: true
-        fields:
-          - { name: text, label: "Item", type: string }
-      - name: frequency
-        label: "Frequency Options"
-        type: object
-        list: true
-        fields:
-          - { name: strong, label: "Bold part", type: string }
-          - { name: rest, label: "Rest", type: string }
-      - { name: frequencyNote, label: "Frequency note", type: text }
-      - { name: commercialH2, label: "Commercial — heading", type: string }
-      - { name: commercialIntro, label: "Commercial — intro", type: text }
-      - name: commercial
-        label: "Commercial (list)"
-        type: object
-        list: true
-        fields:
-          - { name: text, label: "Item", type: string }
-      - name: whyCards
-        label: "Why Clients Stay (cards)"
-        type: object
-        list: true
-        fields:
-          - { name: title, label: "Title", type: string }
-          - { name: body, label: "Body", type: text }
-      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
-
-  - name: about
-    label: About Page
-    type: file
-    path: dustin-yelton-site/src/_data/about.json
-    format: json
+    - name: type
+      label: Section Type
+      type: select
+      options:
+        values:
+        - hero
+        - intro
+        - cards
+        - gallery
+        - beforeafter
+        - split
+        - testimonial
+        - text
+        - cta
+    - name: hidden
+      label: Hide this section
+      type: boolean
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - default
+        - sand
+        - navy
+    - name: align
+      label: Alignment (center?)
+      type: select
+      options:
+        values:
+        - left
+        - center
+    - name: tight
+      label: Tight spacing
+      type: boolean
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: heading
+      label: Heading
+      type: string
+    - name: text
+      label: Text / subtext
+      type: text
+    - name: image
+      label: Section image (hero background)
+      type: image
+    - name: badges
+      label: Badges (hero)
+      type: object
+      list: true
+      fields:
+      - name: text
+        label: Badge
+        type: string
+    - name: items
+      label: Items (cards / gallery / before-after)
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: quote
+      label: Quote (testimonial)
+      type: text
+    - name: author
+      label: Author (testimonial)
+      type: string
+    - name: primaryLabel
+      label: Button label
+      type: string
+    - name: primaryUrl
+      label: Button URL
+      type: string
+    - name: showPhoneButton
+      label: Show 'Call' button
+      type: boolean
+    - name: alignTop
+      label: 'Split: align columns to top'
+      type: boolean
+    - name: leftVariant
+      label: Left column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: leftH1
+      label: 'Left column: heading is H1?'
+      type: boolean
+    - name: leftEyebrow
+      label: Left column small label
+      type: string
+    - name: leftHeading
+      label: Left column heading
+      type: string
+    - name: leftText
+      label: Left column text
+      type: text
+    - name: leftItems
+      label: Left column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: leftImage
+      label: Left column image
+      type: image
+    - name: leftNote
+      label: Left column small note
+      type: string
+    - name: leftButtonLabel
+      label: Left column button label
+      type: string
+    - name: leftButtonUrl
+      label: Left column button URL
+      type: string
+    - name: leftCalloutHeading
+      label: Left column callout heading
+      type: string
+    - name: leftCalloutText
+      label: Left column callout text
+      type: text
+    - name: leftCalloutButtonLabel
+      label: Left column callout link label
+      type: string
+    - name: leftCalloutButtonUrl
+      label: Left column callout link URL
+      type: string
+    - name: rightVariant
+      label: Right column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: rightH1
+      label: 'Right column: heading is H1?'
+      type: boolean
+    - name: rightEyebrow
+      label: Right column small label
+      type: string
+    - name: rightHeading
+      label: Right column heading
+      type: string
+    - name: rightText
+      label: Right column text
+      type: text
+    - name: rightItems
+      label: Right column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: rightImage
+      label: Right column image
+      type: image
+    - name: rightNote
+      label: Right column small note
+      type: string
+    - name: rightButtonLabel
+      label: Right column button label
+      type: string
+    - name: rightButtonUrl
+      label: Right column button URL
+      type: string
+    - name: rightCalloutHeading
+      label: Right column callout heading
+      type: string
+    - name: rightCalloutText
+      label: Right column callout text
+      type: text
+    - name: rightCalloutButtonLabel
+      label: Right column callout link label
+      type: string
+    - name: rightCalloutButtonUrl
+      label: Right column callout link URL
+      type: string
+- name: contact
+  label: Contact Page
+  type: file
+  path: dustin-yelton-site/src/_data/contact.json
+  format: json
+  fields:
+  - name: seoTitle
+    label: SEO Title
+    type: string
+  - name: seoDescription
+    label: SEO Description
+    type: text
+  - name: blocks
+    label: Page Sections (drag to reorder)
+    type: object
+    list: true
     fields:
-      - { name: seoTitle, label: "SEO Title", type: string }
-      - { name: seoDescription, label: "SEO Description", type: text }
-      - { name: h1, label: "Headline", type: string }
-      - name: bio
-        label: "Bio Paragraphs"
-        type: object
-        list: true
-        fields:
-          - { name: paragraph, label: "Paragraph", type: text }
-      - { name: portrait, label: "Portrait Photo", type: image }
-      - { name: creativeEyebrow, label: "Creative — small label", type: string }
-      - { name: creativeH2, label: "Creative — heading", type: string }
-      - { name: creativeBody1, label: "Creative — paragraph 1", type: text }
-      - { name: creativeBody2, label: "Creative — paragraph 2", type: text }
-      - { name: creativeCalloutTitle, label: "Creative callout — title", type: string }
-      - { name: creativeCalloutBody, label: "Creative callout — text", type: text }
-      - name: artThumbs
-        label: "Art Thumbnails"
-        type: object
-        list: true
-        fields:
-          - { name: image, label: "Art image", type: image }
-          - { name: label, label: "Label (shown if no image)", type: string }
-      - { name: valuesEyebrow, label: "Values — small label", type: string }
-      - { name: valuesH2, label: "Values — heading", type: string }
-      - name: valueCards
-        label: "Value Cards"
-        type: object
-        list: true
-        fields:
-          - { name: title, label: "Title", type: string }
-          - { name: body, label: "Body", type: text }
-      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
-
-  - name: contact
-    label: Contact Page
-    type: file
-    path: dustin-yelton-site/src/_data/contact.json
-    format: json
-    fields:
-      - { name: seoTitle, label: "SEO Title", type: string }
-      - { name: seoDescription, label: "SEO Description", type: text }
-      - { name: eyebrow, label: "Small label", type: string }
-      - { name: h1, label: "Headline", type: string }
-      - { name: lead, label: "Intro paragraph", type: text }
-      - name: serviceOptions
-        label: "Form — Service Options"
-        type: object
-        list: true
-        fields:
-          - { name: label, label: "Option", type: string }
-      - { name: infoH2, label: "Contact info — heading", type: string }
-      - { name: ctaHeading, label: "Bottom CTA heading", type: string }
+    - name: type
+      label: Section Type
+      type: select
+      options:
+        values:
+        - hero
+        - intro
+        - cards
+        - gallery
+        - beforeafter
+        - split
+        - testimonial
+        - text
+        - cta
+    - name: hidden
+      label: Hide this section
+      type: boolean
+    - name: background
+      label: Background
+      type: select
+      options:
+        values:
+        - default
+        - sand
+        - navy
+    - name: align
+      label: Alignment (center?)
+      type: select
+      options:
+        values:
+        - left
+        - center
+    - name: tight
+      label: Tight spacing
+      type: boolean
+    - name: eyebrow
+      label: Small label
+      type: string
+    - name: heading
+      label: Heading
+      type: string
+    - name: text
+      label: Text / subtext
+      type: text
+    - name: image
+      label: Section image (hero background)
+      type: image
+    - name: badges
+      label: Badges (hero)
+      type: object
+      list: true
+      fields:
+      - name: text
+        label: Badge
+        type: string
+    - name: items
+      label: Items (cards / gallery / before-after)
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: quote
+      label: Quote (testimonial)
+      type: text
+    - name: author
+      label: Author (testimonial)
+      type: string
+    - name: primaryLabel
+      label: Button label
+      type: string
+    - name: primaryUrl
+      label: Button URL
+      type: string
+    - name: showPhoneButton
+      label: Show 'Call' button
+      type: boolean
+    - name: alignTop
+      label: 'Split: align columns to top'
+      type: boolean
+    - name: leftVariant
+      label: Left column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: leftH1
+      label: 'Left column: heading is H1?'
+      type: boolean
+    - name: leftEyebrow
+      label: Left column small label
+      type: string
+    - name: leftHeading
+      label: Left column heading
+      type: string
+    - name: leftText
+      label: Left column text
+      type: text
+    - name: leftItems
+      label: Left column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: leftImage
+      label: Left column image
+      type: image
+    - name: leftNote
+      label: Left column small note
+      type: string
+    - name: leftButtonLabel
+      label: Left column button label
+      type: string
+    - name: leftButtonUrl
+      label: Left column button URL
+      type: string
+    - name: leftCalloutHeading
+      label: Left column callout heading
+      type: string
+    - name: leftCalloutText
+      label: Left column callout text
+      type: text
+    - name: leftCalloutButtonLabel
+      label: Left column callout link label
+      type: string
+    - name: leftCalloutButtonUrl
+      label: Left column callout link URL
+      type: string
+    - name: rightVariant
+      label: Right column type
+      type: select
+      options:
+        values:
+        - text
+        - checklist
+        - thumbs
+        - image
+        - card
+        - form
+        - info
+    - name: rightH1
+      label: 'Right column: heading is H1?'
+      type: boolean
+    - name: rightEyebrow
+      label: Right column small label
+      type: string
+    - name: rightHeading
+      label: Right column heading
+      type: string
+    - name: rightText
+      label: Right column text
+      type: text
+    - name: rightItems
+      label: Right column items
+      type: object
+      list: true
+      fields:
+      - name: icon
+        label: Icon emoji (cards)
+        type: string
+      - name: title
+        label: Title (cards)
+        type: string
+      - name: body
+        label: Body (cards)
+        type: text
+      - name: linkText
+        label: Link text (cards)
+        type: string
+      - name: linkUrl
+        label: Link URL (cards)
+        type: string
+      - name: image
+        label: Image (gallery / before-after / thumbs)
+        type: image
+      - name: caption
+        label: Caption (gallery)
+        type: string
+      - name: tag
+        label: Tag e.g. Before/After
+        type: string
+      - name: strong
+        label: Bold part (checklist)
+        type: string
+      - name: rest
+        label: Rest of line (checklist)
+        type: string
+      - name: text
+        label: Text (checklist / paragraph)
+        type: string
+      - name: name
+        label: Name (simple list, e.g. county)
+        type: string
+      - name: label
+        label: Label (form option / thumb)
+        type: string
+    - name: rightImage
+      label: Right column image
+      type: image
+    - name: rightNote
+      label: Right column small note
+      type: string
+    - name: rightButtonLabel
+      label: Right column button label
+      type: string
+    - name: rightButtonUrl
+      label: Right column button URL
+      type: string
+    - name: rightCalloutHeading
+      label: Right column callout heading
+      type: string
+    - name: rightCalloutText
+      label: Right column callout text
+      type: text
+    - name: rightCalloutButtonLabel
+      label: Right column callout link label
+      type: string
+    - name: rightCalloutButtonUrl
+      label: Right column callout link URL
+      type: string

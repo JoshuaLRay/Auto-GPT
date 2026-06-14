@@ -1,35 +1,84 @@
 {
   "seoTitle": "Cleaning & Custodial Services | Dustin Yelton — Northern Kentucky",
   "seoDescription": "Residential cleaning and commercial custodial services in Northern Kentucky. One-time, weekly, biweekly, or monthly. Reliable, insured, and thorough. Free estimates.",
-  "eyebrow": "Cleaning & Custodial Services",
-  "h1": "Spaces that feel cared for — on your schedule.",
-  "lead": "Reliable, thorough cleaning for homes and small businesses across Northern Kentucky. The same person every time, so you know who's in your space and exactly what to expect.",
-  "residential": [
-    { "text": "Kitchens — counters, appliances, sinks, floors" },
-    { "text": "Bathrooms — sanitized tubs, showers, toilets, mirrors" },
-    { "text": "Living areas & bedrooms — dusting, surfaces, floors" },
-    { "text": "Vacuuming, mopping, and trash removal" },
-    { "text": "Move-in / move-out and post-project cleanups" }
-  ],
-  "frequency": [
-    { "strong": "One-time", "rest": "— deep clean, event prep, or move-out" },
-    { "strong": "Weekly", "rest": "— for busy households" },
-    { "strong": "Biweekly", "rest": "— the most popular choice" },
-    { "strong": "Monthly", "rest": "— light, steady maintenance" }
-  ],
-  "frequencyNote": "Supplies and equipment provided. Prefer specific products? Just let me know.",
-  "commercialH2": "Commercial & custodial contracts",
-  "commercialIntro": "Offices, shops, churches, and small facilities that need dependable after-hours custodial service. Clean, presentable spaces make a real impression on your customers and staff.",
-  "commercial": [
-    { "text": "Floors, restrooms, breakrooms, and common areas" },
-    { "text": "Trash & recycling, restocking supplies" },
-    { "text": "Flexible after-hours or early-morning scheduling" },
-    { "text": "Consistent service from someone you can trust with a key" }
-  ],
-  "whyCards": [
-    { "title": "Same person, every visit", "body": "No rotating crews. You build a relationship with one reliable provider who learns your space." },
-    { "title": "Insured & trustworthy", "body": "Liability coverage and a careful, respectful approach to your home or business." },
-    { "title": "Flexible scheduling", "body": "One-time or recurring, daytime or after-hours — built around what works for you." }
-  ],
-  "ctaHeading": "Let's get your space on a schedule."
+  "blocks": [
+    {
+      "type": "intro",
+      "hidden": false,
+      "background": "sand",
+      "eyebrow": "Cleaning & Custodial Services",
+      "heading": "Spaces that feel cared for — on your schedule.",
+      "text": "Reliable, thorough cleaning for homes and small businesses across Northern Kentucky. The same person every time, so you know who's in your space and exactly what to expect.",
+      "primaryLabel": "Get a Free Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
+    },
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "default",
+      "leftVariant": "checklist",
+      "leftEyebrow": "Residential Cleaning",
+      "leftHeading": "Homes, top to bottom",
+      "leftText": "From a one-time deep clean to recurring upkeep, every visit covers the spaces that matter most:",
+      "leftItems": [
+        { "text": "Kitchens — counters, appliances, sinks, floors" },
+        { "text": "Bathrooms — sanitized tubs, showers, toilets, mirrors" },
+        { "text": "Living areas & bedrooms — dusting, surfaces, floors" },
+        { "text": "Vacuuming, mopping, and trash removal" },
+        { "text": "Move-in / move-out and post-project cleanups" }
+      ],
+      "rightVariant": "checklist",
+      "rightEyebrow": "Frequency Options",
+      "rightHeading": "However often you need it",
+      "rightItems": [
+        { "strong": "One-time", "rest": "— deep clean, event prep, or move-out" },
+        { "strong": "Weekly", "rest": "— for busy households" },
+        { "strong": "Biweekly", "rest": "— the most popular choice" },
+        { "strong": "Monthly", "rest": "— light, steady maintenance" }
+      ],
+      "rightNote": "Supplies and equipment provided. Prefer specific products? Just let me know."
+    },
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "navy",
+      "leftVariant": "checklist",
+      "leftEyebrow": "For Small Businesses",
+      "leftHeading": "Commercial & custodial contracts",
+      "leftText": "Offices, shops, churches, and small facilities that need dependable after-hours custodial service. Clean, presentable spaces make a real impression on your customers and staff.",
+      "leftItems": [
+        { "text": "Floors, restrooms, breakrooms, and common areas" },
+        { "text": "Trash & recycling, restocking supplies" },
+        { "text": "Flexible after-hours or early-morning scheduling" },
+        { "text": "Consistent service from someone you can trust with a key" }
+      ],
+      "rightVariant": "card",
+      "rightHeading": "Set up a custodial quote",
+      "rightText": "Commercial needs vary a lot by square footage and frequency, so these are always quoted after a quick walkthrough.",
+      "rightButtonLabel": "Request a walkthrough",
+      "rightButtonUrl": "/contact/"
+    },
+    {
+      "type": "cards",
+      "hidden": false,
+      "background": "default",
+      "align": "center",
+      "eyebrow": "Why Clients Stay",
+      "heading": "Dependable, insured, and detail-driven",
+      "items": [
+        { "title": "Same person, every visit", "body": "No rotating crews. You build a relationship with one reliable provider who learns your space." },
+        { "title": "Insured & trustworthy", "body": "Liability coverage and a careful, respectful approach to your home or business." },
+        { "title": "Flexible scheduling", "body": "One-time or recurring, daytime or after-hours — built around what works for you." }
+      ]
+    },
+    {
+      "type": "cta",
+      "hidden": false,
+      "heading": "Let's get your space on a schedule.",
+      "primaryLabel": "Request Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
+    }
+  ]
 }

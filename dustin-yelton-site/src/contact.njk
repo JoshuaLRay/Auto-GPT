@@ -2,6 +2,7 @@
 permalink: /contact/index.html
 ---
 {% set active = "contact" %}
+{% from "blocks.njk" import renderBlocks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,79 +15,7 @@ permalink: /contact/index.html
 </head>
 <body>
   {% include "header.njk" %}
-
-  <section class="section section--sand section--tight">
-    <div class="wrap center">
-      <p class="eyebrow">{{ contact.eyebrow }}</p>
-      <h1>{{ contact.h1 }}</h1>
-      <p class="lead">{{ contact.lead }}</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap split" style="align-items:start;">
-      <div>
-        <div class="form-card">
-          <!-- To receive submissions by email: either use Netlify Forms (add the
-               data-netlify attribute below + a real form name) or paste a Formspree
-               endpoint into `action`. -->
-          <form id="estimate-form" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
-            <div class="field">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" required />
-            </div>
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" required />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" />
-            </div>
-            <div class="field">
-              <label for="service">Service interested in</label>
-              <select id="service" name="service">
-                {% for opt in contact.serviceOptions %}<option>{{ opt.label }}</option>{% endfor %}
-              </select>
-            </div>
-            <div class="field">
-              <label for="details">Project details</label>
-              <textarea id="details" name="details" placeholder="What are you looking to get done? Rough size, timeline, anything helpful."></textarea>
-            </div>
-            <div class="btn-row">
-              <button type="submit" class="btn">Send Request</button>
-            </div>
-            <p id="form-status" class="form-note" style="display:none; margin-top:14px;"></p>
-          </form>
-        </div>
-      </div>
-
-      <div>
-        <p class="eyebrow">Reach {{ site.businessName }}</p>
-        <h2>{{ contact.infoH2 }}</h2>
-        <ul class="info-list">
-          <li><strong>Phone</strong><a href="tel:{{ site.phoneHref }}">{{ site.phoneDisplay }}</a></li>
-          <li><strong>Email</strong><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-          <li><strong>Hours</strong>{{ site.hoursText }}</li>
-          <li><strong>Service Area</strong>{{ site.serviceAreaShort }}</li>
-        </ul>
-        <div class="map-embed" style="margin-top:8px;">
-          Service-area map<br/>
-          <span class="form-note">Embed a Google Map of the service area here.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-band section--tight">
-    <div class="wrap">
-      <h2 class="mb-0">{{ contact.ctaHeading }}</h2>
-      <div class="btn-row">
-        <a class="btn btn--dark" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
-      </div>
-    </div>
-  </section>
-
+  {{ renderBlocks(contact.blocks, site) }}
   {% include "footer.njk" %}
   <script src="/js/main.js"></script>
 </body>

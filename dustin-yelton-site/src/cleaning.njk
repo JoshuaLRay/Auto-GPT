@@ -2,6 +2,7 @@
 permalink: /cleaning/index.html
 ---
 {% set active = "cleaning" %}
+{% from "blocks.njk" import renderBlocks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,84 +15,7 @@ permalink: /cleaning/index.html
 </head>
 <body>
   {% include "header.njk" %}
-
-  <section class="section section--sand">
-    <div class="wrap">
-      <p class="eyebrow">{{ cleaning.eyebrow }}</p>
-      <h1>{{ cleaning.h1 }}</h1>
-      <p class="lead">{{ cleaning.lead }}</p>
-      <div class="btn-row" style="margin-top:18px;">
-        <a class="btn" href="/contact/">Get a Free Estimate</a>
-        <a class="btn btn--dark" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">Residential Cleaning</p>
-        <h2>Homes, top to bottom</h2>
-        <p>From a one-time deep clean to recurring upkeep, every visit covers the spaces that matter most:</p>
-        <ul class="checks">
-          {% for item in cleaning.residential %}<li>{{ item.text }}</li>{% endfor %}
-        </ul>
-      </div>
-      <div>
-        <p class="eyebrow">Frequency Options</p>
-        <h2>However often you need it</h2>
-        <ul class="checks">
-          {% for f in cleaning.frequency %}<li><strong>{{ f.strong }}</strong> {{ f.rest }}</li>{% endfor %}
-        </ul>
-        <p class="form-note">{{ cleaning.frequencyNote }}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--navy">
-    <div class="wrap split">
-      <div>
-        <p class="eyebrow">For Small Businesses</p>
-        <h2>{{ cleaning.commercialH2 }}</h2>
-        <p>{{ cleaning.commercialIntro }}</p>
-        <ul class="checks">
-          {% for item in cleaning.commercial %}<li>{{ item.text }}</li>{% endfor %}
-        </ul>
-      </div>
-      <div>
-        <div class="form-card">
-          <h3 class="mt-0">Set up a custodial quote</h3>
-          <p style="color:var(--muted);">Commercial needs vary a lot by square footage and frequency, so these are always quoted after a quick walkthrough.</p>
-          <a class="btn" href="/contact/">Request a walkthrough</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap center">
-      <p class="eyebrow">Why Clients Stay</p>
-      <h2>Dependable, insured, and detail-driven</h2>
-    </div>
-    <div class="wrap" style="margin-top:30px;">
-      <div class="grid grid-3">
-        {% for c in cleaning.whyCards %}
-        <div class="card"><h3>{{ c.title }}</h3><p>{{ c.body }}</p></div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-band section--tight">
-    <div class="wrap">
-      <h2 class="mb-0">{{ cleaning.ctaHeading }}</h2>
-      <div class="btn-row">
-        <a class="btn btn--dark" href="/contact/">Request Estimate</a>
-        <a class="btn btn--ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phoneDisplay }}</a>
-      </div>
-    </div>
-  </section>
-
+  {{ renderBlocks(cleaning.blocks, site) }}
   {% include "footer.njk" %}
   <script src="/js/main.js"></script>
 </body>
