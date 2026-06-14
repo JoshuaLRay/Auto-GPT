@@ -26,6 +26,8 @@ type Config struct {
 
 	FFmpegPath  string // path to ffmpeg binary
 	FFprobePath string // path to ffprobe binary
+
+	WebDir string // directory of the built web app to serve (empty = API only)
 }
 
 // TranscodeDir is where per-session HLS output is written.
@@ -44,6 +46,7 @@ func Load() *Config {
 		TMDBAPIKey:    env("STREAMHUB_TMDB_API_KEY", ""),
 		FFmpegPath:    env("STREAMHUB_FFMPEG", "ffmpeg"),
 		FFprobePath:   env("STREAMHUB_FFPROBE", "ffprobe"),
+		WebDir:        env("STREAMHUB_WEB_DIR", ""),
 	}
 
 	for _, d := range strings.Split(env("STREAMHUB_MEDIA_DIRS", "./media"), string(os.PathListSeparator)) {

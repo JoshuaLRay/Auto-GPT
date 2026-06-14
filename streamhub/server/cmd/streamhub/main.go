@@ -56,6 +56,7 @@ func main() {
 		Scanner: scanner,
 		Store:   store,
 		Streams: streams,
+		WebDir:  cfg.WebDir,
 	}
 
 	// Kick off an initial library scan in the background so first run populates.

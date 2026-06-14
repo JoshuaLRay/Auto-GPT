@@ -1,8 +1,12 @@
-# Local "just works" deployment. Point MEDIA_DIR at your library and run:
+# One container serving the API, HLS streaming, AND the web app on :8080.
+# Point MEDIA_DIR at your library and run:
 #   STREAMHUB_ADMIN_PASSWORD=yourpass MEDIA_DIR=/path/to/media docker compose up --build
+# Then open http://localhost:8080 (or http://<your-LAN-IP>:8080 from your phone).
 services:
   streamhub:
-    build: ../server
+    build:
+      context: ..              # streamhub/ — includes both server/ and clients/web/
+      dockerfile: server/Dockerfile
     ports:
       - "8080:8080"
     environment:

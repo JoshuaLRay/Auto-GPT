@@ -26,6 +26,9 @@ and cloud/object-storage backends come in later phases.
 
 ## Run with Docker (recommended)
 
+The image builds the web app and serves it alongside the API on a single port,
+so one command gives you a working UI:
+
 ```sh
 cd ../deploy
 STREAMHUB_ADMIN_PASSWORD=yourpass \
@@ -34,6 +37,9 @@ MEDIA_DIR=/path/to/your/media \
 docker compose up --build
 ```
 
+Then open **http://localhost:8080** — or **http://&lt;your-LAN-IP&gt;:8080** from
+a phone/TV on the same network. Log in with the admin credentials above.
+
 ## Run from source
 
 ```sh
@@ -41,6 +47,15 @@ export STREAMHUB_ADMIN_PASSWORD=yourpass
 export STREAMHUB_JWT_SECRET=$(openssl rand -hex 32)
 export STREAMHUB_MEDIA_DIRS=/path/to/your/media
 go run ./cmd/streamhub
+```
+
+To also serve the web UI from the running binary (one URL), build the web app
+and point `STREAMHUB_WEB_DIR` at it:
+
+```sh
+(cd ../clients/web && npm install && npm run build)
+STREAMHUB_WEB_DIR=../clients/web/dist go run ./cmd/streamhub
+# UI + API on http://localhost:8080
 ```
 
 Configuration is environment-driven; see [`.env.example`](.env.example).

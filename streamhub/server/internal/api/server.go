@@ -18,6 +18,7 @@ type Server struct {
 	Scanner *library.Scanner
 	Store   storage.Storage
 	Streams *stream.Manager
+	WebDir  string // built web app to serve at "/"; empty serves the API only
 }
 
 // Handler builds the http.Handler with all routes mounted.
@@ -47,6 +48,10 @@ func (s *Server) Handler() http.Handler {
 	protected.HandleFunc("POST /api/library/scan", s.handleScan)
 
 	mux.Handle("/api/", s.Auth.Middleware(protected))
+
+	// Catch-all: serve the built web app (and SPA fallback) when configured.
+	// More specific patterns above (/api/, /healthz) take precedence.
+	mux.Handle("/", s.spaHandler())
 
 	return withCommonHeaders(mux)
 }

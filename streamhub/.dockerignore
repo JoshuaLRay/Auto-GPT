@@ -1,0 +1,9 @@
+# Keep the Docker build context small and reproducible.
+**/node_modules
+**/dist
+**/data
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/.env
+docs

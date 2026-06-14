@@ -7,9 +7,24 @@ Think "your own Plex/Jellyfin" — one backend that can run on a home box on you
 *or* in the cloud for streaming over the internet, feeding thin clients that all speak
 the same API and stream the same format (HLS).
 
-> ⚠️ This directory currently contains **planning artifacts only**. No application code
-> has been written yet. The docs below are meant to be reviewed and revised before we
-> start building. See [`docs/ROADMAP.md`](docs/ROADMAP.md) for the phased plan.
+**Status:** the backend (Phase 1) and web app (Phase 2) are built. Music/photos,
+Android TV, and Roku are next — see [`docs/ROADMAP.md`](docs/ROADMAP.md).
+
+## Quick start
+
+Requires [Docker](https://docs.docker.com/get-docker/). FFmpeg is bundled in the image.
+
+```sh
+cd deploy
+STREAMHUB_ADMIN_PASSWORD=pick-a-password \
+STREAMHUB_JWT_SECRET=$(openssl rand -hex 32) \
+MEDIA_DIR=/path/to/your/media \
+docker compose up --build
+```
+
+This serves the API **and** the web UI on one port. Open **http://localhost:8080**
+(or **http://&lt;your-LAN-IP&gt;:8080** from a phone/TV on the same Wi-Fi — iOS Safari
+plays the streams natively), log in, hit **Scan**, and play.
 
 ## Why this lives here
 
