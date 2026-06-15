@@ -1,0 +1,17 @@
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/"><b>{{ site.businessName }}</b><span>{{ site.businessNameSub }}</span></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="/"{% if active == "home" %} class="active"{% endif %}>Home</a></li>
+      <li><a href="/painting/"{% if active == "painting" %} class="active"{% endif %}>Painting</a></li>
+      <li><a href="/cleaning/"{% if active == "cleaning" %} class="active"{% endif %}>Cleaning</a></li>
+      <li><a href="/about/"{% if active == "about" %} class="active"{% endif %}>About</a></li>
+      <li><a href="/contact/"{% if active == "contact" %} class="active"{% endif %}>Contact</a></li>
+    </ul>
+    <div class="nav-phone">
+      <a class="phone" href="tel:{{ site.phoneHref }}">{{ site.phoneDisplay }}</a>
+      <a class="btn" href="/contact/">Free Estimate</a>
+    </div>
+  </div>
+</header>
