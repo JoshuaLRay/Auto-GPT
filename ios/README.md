@@ -168,12 +168,26 @@ router payload" disclosure so nothing is ever hidden from you.
 
 ## Tests
 
-`⌘U` in Xcode, or:
+`⌘U` in Xcode, or from the command line.
+
+To compile without needing a specific simulator installed:
 
 ```sh
-xcodebuild test -project ios/XRControl.xcodeproj -scheme XRControl \
-  -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild build -project ios/XRControl.xcodeproj -scheme XRControl \
+  -destination 'generic/platform=iOS Simulator'
 ```
+
+Running the tests needs a concrete simulator, and which ones exist depends on
+your Xcode version — so list them rather than guessing a device name:
+
+```sh
+xcodebuild -showdestinations -project ios/XRControl.xcodeproj -scheme XRControl
+xcodebuild test -project ios/XRControl.xcodeproj -scheme XRControl \
+  -destination 'platform=iOS Simulator,name=<a name from the list above>'
+```
+
+Simulator builds need no code signing, so neither command requires an Apple ID
+or a development team. That is only needed to install on a physical iPhone.
 
 Coverage is on the parts that break silently: JSON-RPC envelope encoding, error
 mapping (including the 200-with-`eid` case), SOAP envelope construction and
