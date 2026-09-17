@@ -1,0 +1,16 @@
+# Netlify configuration for the Dustin Yelton site.
+#
+# The site now uses Eleventy (11ty) to generate HTML from editable data files,
+# so Dustin can edit content through the /admin CMS. Netlify runs the build.
+#
+# `base` points Netlify at the site folder (so it sees package.json and builds
+# Node, NOT the unrelated Python project at the repo root). With `base` set,
+# `command` runs inside it and `publish` is resolved relative to it.
+
+[build]
+  base = "dustin-yelton-site"
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "20"

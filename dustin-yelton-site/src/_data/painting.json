@@ -1,0 +1,81 @@
+{
+  "seoTitle": "Interior Painting Services | Dustin Yelton — Northern Kentucky",
+  "seoDescription": "Interior painting in Northern Kentucky: walls, trim, ceilings, doors, and cabinet refinishing. Licensed, insured, EPA Lead-Safe. Free estimates in Pendleton, Bracken, Campbell & Kenton counties.",
+  "blocks": [
+    {
+      "type": "intro",
+      "hidden": false,
+      "background": "sand",
+      "eyebrow": "Painting Services",
+      "heading": "Interior painting that holds up — because the prep is done right.",
+      "text": "Most of a great paint job happens before the first coat: filling, sanding, taping, and protecting your space. That's where I spend the time, so the finish looks clean and lasts for years.",
+      "primaryLabel": "Get a Free Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
+    },
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "default",
+      "leftVariant": "checklist",
+      "leftEyebrow": "Services",
+      "leftHeading": "What I paint",
+      "leftItems": [
+        { "strong": "Walls & ceilings", "rest": "— single rooms or whole-home interiors" },
+        { "strong": "Trim, baseboards & crown molding", "rest": "— crisp, clean edges" },
+        { "strong": "Doors & door frames", "rest": "— smooth, brush-mark-free finish" },
+        { "strong": "Cabinet refinishing", "rest": "— kitchens and bathrooms made new again" },
+        { "strong": "Accent walls & color updates", "rest": "— modern, on-trend palettes" },
+        { "strong": "Drywall patching & minor repair", "rest": "— before paint goes on" }
+      ],
+      "rightVariant": "checklist",
+      "rightEyebrow": "The Process",
+      "rightHeading": "How a job goes",
+      "rightItems": [
+        { "strong": "Walkthrough & free estimate", "rest": "— in person, no pressure" },
+        { "strong": "Protect the space", "rest": "— floors, furniture, fixtures covered" },
+        { "strong": "Prep", "rest": "— fill, sand, caulk, prime where needed" },
+        { "strong": "Paint", "rest": "— quality materials, even coats" },
+        { "strong": "Clean walkthrough", "rest": "— we review the work together" }
+      ]
+    },
+    {
+      "type": "beforeafter",
+      "hidden": false,
+      "background": "sand",
+      "eyebrow": "Before & After",
+      "heading": "The difference is in the details",
+      "items": [
+        { "tag": "Before" },
+        { "tag": "After" }
+      ]
+    },
+    {
+      "type": "split",
+      "hidden": false,
+      "background": "default",
+      "leftVariant": "checklist",
+      "leftEyebrow": "Service Area",
+      "leftHeading": "Proudly serving Northern Kentucky",
+      "leftText": "Home-base coverage across the river counties, with travel into nearby areas by arrangement:",
+      "leftItems": [
+        { "name": "Pendleton County" },
+        { "name": "Bracken County" },
+        { "name": "Campbell County" },
+        { "name": "Kenton County" },
+        { "name": "Nearby Ohio & Indiana communities — just ask" }
+      ],
+      "rightVariant": "text",
+      "rightCalloutHeading": "Licensed, insured & lead-safe",
+      "rightCalloutText": "Older Northern Kentucky homes can contain lead paint. As an EPA Lead-Safe Certified firm, I follow safe containment and cleanup practices to protect your family — and I carry liability insurance on every job."
+    },
+    {
+      "type": "cta",
+      "hidden": false,
+      "heading": "Get a free painting estimate this week.",
+      "primaryLabel": "Request Estimate",
+      "primaryUrl": "/contact/",
+      "showPhoneButton": true
+    }
+  ]
+}

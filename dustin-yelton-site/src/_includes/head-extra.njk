@@ -1,0 +1,7 @@
+{# Search-engine controls. Toggle in src/_data/seo.json (NOT in the CMS):
+   - indexable: false  → tells Google to stay away (use while it's a placeholder POC)
+   - indexable: true   → allow indexing (flip this the day you launch for real)
+   - siteUrl: set to the real domain (e.g. https://dustinyelton.com) at launch so
+     canonical tags + sitemap use absolute URLs. #}
+{% if not seo.indexable %}<meta name="robots" content="noindex, nofollow" />{% endif %}
+{% if seo.siteUrl %}<link rel="canonical" href="{{ seo.siteUrl }}{{ page.url }}" />{% endif %}

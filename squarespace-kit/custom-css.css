@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Dustin Yelton Painting & Cleaning — Squarespace Custom CSS
+   Paste into: Design → Custom CSS.
+   Most styling should be done with Squarespace's native Colors/Fonts/Buttons
+   panels (see BUILD-GUIDE.md step 2). This file adds the finishing touches
+   that match the static proof-of-concept: pill buttons, badge chips, callout
+   cards, and tighter section rhythm.
+   NOTE: Squarespace block/class names vary by site. If a rule doesn't take,
+   right-click → Inspect the element to confirm the selector, or apply the
+   look with native settings instead.
+   ========================================================================== */
+
+:root {
+  --dy-navy: #1f2a44;
+  --dy-navy-deep: #161e33;
+  --dy-terracotta: #c4623c;
+  --dy-terracotta-dark: #a44e2d;
+  --dy-sand: #f4efe7;
+  --dy-cream: #fbf9f5;
+}
+
+/* Pill buttons everywhere */
+.sqs-block-button-element,
+.sqs-button-element--primary {
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  letter-spacing: .01em;
+}
+
+/* "Badge" chips — apply a Code Block or style small text items in the hero.
+   Wrap badge text in <span class="dy-badge">…</span> via a Code block. */
+.dy-badge {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 600;
+  margin: 4px 6px 4px 0;
+}
+
+/* Callout card — wrap content in <div class="dy-callout">…</div> (Code block) */
+.dy-callout {
+  border-left: 4px solid var(--dy-terracotta);
+  background: #fff;
+  padding: 22px 24px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 4px 14px rgba(31,42,68,.08);
+}
+
+/* Eyebrow label — small uppercase accent above headings.
+   Wrap in <span class="dy-eyebrow">…</span> */
+.dy-eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--dy-terracotta-dark);
+  margin-bottom: .4rem;
+}
+
+/* Checklist with green checks — use a Markdown/Code block list with this class
+   on the <ul>: <ul class="dy-checks"> */
+.dy-checks { list-style: none; padding-left: 0; }
+.dy-checks li { position: relative; padding-left: 28px; margin-bottom: 10px; }
+.dy-checks li::before {
+  content: "\2713"; position: absolute; left: 0; top: 0;
+  color: #2f6f4f; font-weight: 800;
+}
+
+/* Keep the header phone number bold and visible */
+header .header-nav-item a[href^="tel:"],
+.header-actions a[href^="tel:"] { font-weight: 800; }
+
+/* Slightly tighter heading line-height for the serif headings */
+h1, h2, h3 { line-height: 1.15; }
