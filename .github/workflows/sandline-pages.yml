@@ -31,9 +31,9 @@ jobs:
           cache: pnpm
           cache-dependency-path: sandline/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
-      # Vite must emit relative asset URLs: Pages serves from a subpath
-      # (/<repo>/), so absolute /assets/... would 404.
-      - run: pnpm --filter @sandline/client build -- --base=./
+      # Relative asset URLs come from `base: './'` in vite.config.ts, not a CLI
+      # flag - the flag did not survive forwarding through pnpm.
+      - run: pnpm --filter @sandline/client build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: sandline/packages/client/dist
