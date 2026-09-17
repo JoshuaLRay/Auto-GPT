@@ -157,3 +157,8 @@ vicuna-*
 
 # mac
 .DS_Store
+
+# sandline
+sandline/node_modules/
+sandline/dist/
+sandline/packages/*/dist/
