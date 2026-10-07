@@ -1,0 +1,32 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>{{ site.businessNameFull }}</h4>
+        <p>{{ site.footerBlurb }}</p>
+        <p class="footer-badges">{{ site.footerBadgeLine }}</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/painting/">Painting Services</a></li>
+          <li><a href="/cleaning/">Cleaning & Custodial</a></li>
+          <li><a href="/about/">About Dustin</a></li>
+          <li><a href="/contact/">Free Estimate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:{{ site.phoneHref }}">{{ site.phoneDisplay }}</a></li>
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li>{{ site.serviceAreaShort }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>&copy; <span id="year">2026</span> {{ site.businessNameFull }}. All rights reserved.</span>
+      <span>{{ site.footerCreativeNote }}</span>
+    </div>
+  </div>
+</footer>

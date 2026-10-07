@@ -1,0 +1,22 @@
+---
+permalink: /painting/index.html
+---
+{% set active = "painting" %}
+{% from "blocks.njk" import renderBlocks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ painting.seoTitle }}</title>
+  <meta name="description" content="{{ painting.seoDescription }}" />
+  {% include "head-extra.njk" %}
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  {% include "header.njk" %}
+  {{ renderBlocks(painting.blocks, site) }}
+  {% include "footer.njk" %}
+  <script src="/js/main.js"></script>
+</body>
+</html>
